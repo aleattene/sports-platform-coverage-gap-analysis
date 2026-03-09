@@ -85,6 +85,58 @@ These outputs can support **strategic decisions for sports platforms**, such as:
 - prioritizing expansion
 - improving platform adoption among sports organizations.
 
+### 🔑 Key Findings
+The analysis highlights several significant coverage gaps between the estimated market of sports clubs and the clubs currently present on the platform.
+
+Key observations include:
+- Football shows the largest coverage gap across most Italian regions.
+- Northern regions generally display higher platform coverage compared to southern regions.
+- Several sports such as tennis, volleyball and athletics show significant growth opportunities in medium-size regions.
+- Some region–sport combinations reveal particularly low platform adoption despite a high estimated number of clubs.
+
+These findings suggest that targeted expansion strategies could significantly increase platform adoption in underserved areas.
+
+### 📈 Example Results
+| Region | Sport | Coverage Rate |
+|------|------|------|
+| Lombardia | Football | 3.5% |
+| Lazio | Tennis | 6.1% |
+| Sicilia | Football | 4.0% |
+
+### 🚀 Final Dataset
+The pipeline generates the final analytical dataset: 
+`data/processed/coverage_gap_analysis.csv`
+
+Main fields:
+
+- `region`
+- `sport`
+- `clubs_estimated`
+- `platform_clubs`
+- `coverage_rate`
+- `coverage_gap`
+- `priority_score`
+
+This dataset summarizes the relationship between estimated market supply and platform presence, enabling further analysis and visualization.
+
+
+### 📊 Visual Insights
+
+![Coverage Gap by Region](reports/coverage_gap_by_region.png)
+![Coverage Gap by Sport](reports/coverage_gap_by_sport.png)
+![Coverage Gap Heatmap](reports/coverage_gap_heatmap.png)
+
+
+### 🔁 Reproducibility
+The full data pipeline can be executed automatically via GitHub Actions or locally.
+Run locally:
+```bash
+python src/run_pipeline.py
+```
+The pipeline will generate all processed datasets in: 
+`data/processed/`
+
+
 ## 👤 Author
 
 Alessandro Attene
