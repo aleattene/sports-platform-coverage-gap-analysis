@@ -13,6 +13,8 @@ Explore the interactive dashboard built on the final dataset:
 
 ➡️ **[Open the Looker Studio Dashboard](https://lookerstudio.google.com/s/tDAIpFPxjls)**
 
+⚠️ A Google account may be required to view the dashboard.
+
 The dashboard allows users to explore:
 
 - platform coverage by region
@@ -147,16 +149,6 @@ python src/run_pipeline.py
 ```
 The pipeline will generate all processed datasets in: 
 `data/processed/`
-
-## 🔗 Interactive Dashboard
-
-An [interactive Looker Studio dashboard](https://lookerstudio.google.com/s/tDAIpFPxjls) is available to explore the coverage gap analysis.
-
-The dashboard allows users to:
-- explore coverage by region
-- analyze sport-specific adoption
-- identify territories with the highest expansion potential
-- filter results by sport and region
 
 ## 👤 Author
 
