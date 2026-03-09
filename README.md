@@ -7,10 +7,22 @@
 ![License](https://img.shields.io/badge/License-MIT-blue)
 ![Status](https://img.shields.io/badge/Project-MVP%20in%20progress-orange)
 
-### 🏟️ Project Type
--  Sports Data Analysis
+## 📊 Interactive Dashboard
 
-This project investigates potential coverage gaps in a sports platform by comparing the estimated sports supply in each region with simulated platform coverage.
+Explore the interactive dashboard built on the final dataset:
+
+➡️ **[Open the Looker Studio Dashboard](https://lookerstudio.google.com/s/tDAIpFPxjls)**
+
+The dashboard allows users to explore:
+
+- platform coverage by region
+- sport-specific adoption
+- territories with the highest expansion potential
+
+### 🏟️ Project Type
+-  Data Analysis
+
+The project investigates potential coverage gaps in a sports platform by comparing the estimated sports supply in each region with simulated platform coverage.
 
 ### 🎯 Project Goal
 Identify regions and sports that are not yet served (or only partially served) by the platform,
@@ -136,6 +148,15 @@ python src/run_pipeline.py
 The pipeline will generate all processed datasets in: 
 `data/processed/`
 
+## 🔗 Interactive Dashboard
+
+An [interactive Looker Studio dashboard](https://lookerstudio.google.com/s/tDAIpFPxjls) is available to explore the coverage gap analysis.
+
+The dashboard allows users to:
+- explore coverage by region
+- analyze sport-specific adoption
+- identify territories with the highest expansion potential
+- filter results by sport and region
 
 ## 👤 Author
 
