@@ -1,0 +1,252 @@
+region,sport,platform_clubs
+Abruzzo,athletics,10
+Abruzzo,basketball,14
+Abruzzo,cycling,5
+Abruzzo,football,38
+Abruzzo,futsal,1
+Abruzzo,gymnastics,4
+Abruzzo,martial_arts,13
+Abruzzo,padel,6
+Abruzzo,rugby,2
+Abruzzo,swimming,15
+Abruzzo,tennis,11
+Abruzzo,volleyball,12
+Basilicata,athletics,2
+Basilicata,basketball,3
+Basilicata,cycling,4
+Basilicata,football,14
+Basilicata,futsal,1
+Basilicata,gymnastics,1
+Basilicata,martial_arts,5
+Basilicata,padel,1
+Basilicata,rugby,1
+Basilicata,swimming,7
+Basilicata,tennis,4
+Basilicata,volleyball,3
+Calabria,athletics,7
+Calabria,baseball,1
+Calabria,basketball,5
+Calabria,cycling,5
+Calabria,football,26
+Calabria,futsal,2
+Calabria,gymnastics,5
+Calabria,martial_arts,11
+Calabria,padel,4
+Calabria,rugby,4
+Calabria,swimming,6
+Calabria,tennis,8
+Calabria,volleyball,7
+Campania,athletics,13
+Campania,baseball,3
+Campania,basketball,29
+Campania,cycling,14
+Campania,football,101
+Campania,futsal,4
+Campania,gymnastics,13
+Campania,handball,2
+Campania,martial_arts,19
+Campania,padel,9
+Campania,rugby,2
+Campania,swimming,31
+Campania,tennis,27
+Campania,volleyball,30
+Emilia-Romagna,athletics,22
+Emilia-Romagna,baseball,2
+Emilia-Romagna,basketball,25
+Emilia-Romagna,cycling,18
+Emilia-Romagna,football,87
+Emilia-Romagna,futsal,2
+Emilia-Romagna,gymnastics,20
+Emilia-Romagna,handball,2
+Emilia-Romagna,martial_arts,18
+Emilia-Romagna,padel,14
+Emilia-Romagna,rugby,2
+Emilia-Romagna,swimming,18
+Emilia-Romagna,tennis,28
+Emilia-Romagna,volleyball,23
+Friuli-Venezia Giulia,athletics,5
+Friuli-Venezia Giulia,basketball,10
+Friuli-Venezia Giulia,cycling,3
+Friuli-Venezia Giulia,football,37
+Friuli-Venezia Giulia,futsal,4
+Friuli-Venezia Giulia,gymnastics,6
+Friuli-Venezia Giulia,handball,2
+Friuli-Venezia Giulia,martial_arts,14
+Friuli-Venezia Giulia,padel,5
+Friuli-Venezia Giulia,rugby,3
+Friuli-Venezia Giulia,swimming,7
+Friuli-Venezia Giulia,tennis,11
+Friuli-Venezia Giulia,volleyball,3
+Lazio,athletics,28
+Lazio,baseball,3
+Lazio,basketball,37
+Lazio,cycling,15
+Lazio,football,109
+Lazio,futsal,10
+Lazio,gymnastics,11
+Lazio,handball,1
+Lazio,martial_arts,27
+Lazio,padel,19
+Lazio,rugby,3
+Lazio,swimming,27
+Lazio,tennis,30
+Lazio,volleyball,30
+Liguria,athletics,5
+Liguria,basketball,12
+Liguria,cycling,8
+Liguria,football,32
+Liguria,gymnastics,9
+Liguria,martial_arts,9
+Liguria,padel,8
+Liguria,rugby,2
+Liguria,swimming,10
+Liguria,tennis,15
+Liguria,volleyball,12
+Lombardia,athletics,23
+Lombardia,basketball,40
+Lombardia,cycling,28
+Lombardia,football,131
+Lombardia,futsal,11
+Lombardia,gymnastics,22
+Lombardia,handball,2
+Lombardia,martial_arts,36
+Lombardia,padel,23
+Lombardia,rugby,2
+Lombardia,swimming,39
+Lombardia,tennis,45
+Lombardia,volleyball,46
+Marche,athletics,5
+Marche,baseball,1
+Marche,basketball,13
+Marche,cycling,9
+Marche,football,32
+Marche,futsal,1
+Marche,gymnastics,8
+Marche,martial_arts,11
+Marche,padel,6
+Marche,rugby,1
+Marche,swimming,8
+Marche,tennis,8
+Marche,volleyball,7
+Molise,athletics,2
+Molise,baseball,1
+Molise,basketball,3
+Molise,cycling,1
+Molise,football,8
+Molise,futsal,1
+Molise,gymnastics,4
+Molise,martial_arts,2
+Molise,padel,1
+Molise,swimming,2
+Molise,tennis,7
+Molise,volleyball,2
+Piemonte,athletics,16
+Piemonte,basketball,25
+Piemonte,cycling,12
+Piemonte,football,73
+Piemonte,futsal,6
+Piemonte,gymnastics,18
+Piemonte,handball,1
+Piemonte,martial_arts,27
+Piemonte,padel,11
+Piemonte,rugby,1
+Piemonte,swimming,23
+Piemonte,tennis,27
+Piemonte,volleyball,24
+Puglia,athletics,9
+Puglia,baseball,3
+Puglia,basketball,23
+Puglia,cycling,17
+Puglia,football,82
+Puglia,futsal,6
+Puglia,gymnastics,10
+Puglia,handball,2
+Puglia,martial_arts,21
+Puglia,padel,11
+Puglia,rugby,2
+Puglia,swimming,11
+Puglia,tennis,17
+Puglia,volleyball,24
+Sardegna,athletics,6
+Sardegna,baseball,1
+Sardegna,basketball,6
+Sardegna,cycling,1
+Sardegna,football,21
+Sardegna,futsal,1
+Sardegna,gymnastics,5
+Sardegna,martial_arts,6
+Sardegna,padel,7
+Sardegna,rugby,2
+Sardegna,swimming,10
+Sardegna,tennis,9
+Sardegna,volleyball,10
+Sicilia,athletics,13
+Sicilia,baseball,3
+Sicilia,basketball,21
+Sicilia,cycling,15
+Sicilia,football,84
+Sicilia,futsal,5
+Sicilia,gymnastics,16
+Sicilia,handball,1
+Sicilia,martial_arts,20
+Sicilia,padel,8
+Sicilia,rugby,3
+Sicilia,swimming,26
+Sicilia,tennis,27
+Sicilia,volleyball,21
+Toscana,athletics,18
+Toscana,basketball,27
+Toscana,cycling,15
+Toscana,football,83
+Toscana,futsal,3
+Toscana,gymnastics,12
+Toscana,handball,1
+Toscana,martial_arts,15
+Toscana,padel,8
+Toscana,rugby,4
+Toscana,swimming,22
+Toscana,tennis,22
+Toscana,volleyball,26
+Trentino-Alto Adige,athletics,3
+Trentino-Alto Adige,basketball,9
+Trentino-Alto Adige,cycling,6
+Trentino-Alto Adige,football,20
+Trentino-Alto Adige,futsal,2
+Trentino-Alto Adige,gymnastics,7
+Trentino-Alto Adige,martial_arts,4
+Trentino-Alto Adige,padel,2
+Trentino-Alto Adige,swimming,11
+Trentino-Alto Adige,tennis,15
+Trentino-Alto Adige,volleyball,4
+Umbria,athletics,4
+Umbria,basketball,8
+Umbria,cycling,6
+Umbria,football,27
+Umbria,gymnastics,2
+Umbria,martial_arts,4
+Umbria,padel,6
+Umbria,swimming,7
+Umbria,tennis,8
+Umbria,volleyball,6
+Valle d'Aosta,athletics,2
+Valle d'Aosta,basketball,3
+Valle d'Aosta,cycling,1
+Valle d'Aosta,football,8
+Valle d'Aosta,martial_arts,1
+Valle d'Aosta,padel,2
+Valle d'Aosta,swimming,4
+Valle d'Aosta,tennis,4
+Valle d'Aosta,volleyball,1
+Veneto,athletics,23
+Veneto,baseball,3
+Veneto,basketball,25
+Veneto,cycling,21
+Veneto,football,121
+Veneto,futsal,3
+Veneto,gymnastics,19
+Veneto,martial_arts,26
+Veneto,padel,17
+Veneto,rugby,1
+Veneto,swimming,23
+Veneto,tennis,34
+Veneto,volleyball,27
