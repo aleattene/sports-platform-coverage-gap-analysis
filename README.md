@@ -136,9 +136,9 @@ This dataset summarizes the relationship between estimated market supply and pla
 
 ### 📊 Visual Insights
 
-![Coverage Gap by Region](reports/coverage_gap_by_region.png)
-![Coverage Gap by Sport](reports/coverage_gap_by_sport.png)
-![Coverage Gap Heatmap](reports/coverage_gap_heatmap.png)
+![Coverage Gap by Region](reports/figures/coverage_gap_by_region.png)
+![Coverage Gap by Sport](reports/figures/coverage_gap_by_sport.png)
+![Coverage Gap Heatmap](reports/figures/coverage_gap_heatmap.png)
 
 
 ### 🔁 Reproducibility
