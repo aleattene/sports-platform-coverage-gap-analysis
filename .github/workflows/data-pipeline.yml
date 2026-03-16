@@ -37,7 +37,7 @@ jobs:
         env:
           PYTHONPATH: ${{ github.workspace }}
         run: |
-          python src/run_pipeline.py
+          python src/run_analysis_pipeline.py
 
 #      - name: Execute notebook
 #        env:

@@ -136,16 +136,16 @@ This dataset summarizes the relationship between estimated market supply and pla
 
 ### 📊 Visual Insights
 
-![Coverage Gap by Region](reports/coverage_gap_by_region.png)
-![Coverage Gap by Sport](reports/coverage_gap_by_sport.png)
-![Coverage Gap Heatmap](reports/coverage_gap_heatmap.png)
+![Coverage Gap by Region](reports/figures/coverage_gap_by_region.png)
+![Coverage Gap by Sport](reports/figures/coverage_gap_by_sport.png)
+![Coverage Gap Heatmap](reports/figures/coverage_gap_heatmap.png)
 
 
 ### 🔁 Reproducibility
 The full data pipeline can be executed automatically via GitHub Actions or locally.
 Run locally:
 ```bash
-python src/run_pipeline.py
+python src/run_analysis_pipeline.py
 ```
 The pipeline will generate all processed datasets in: 
 `data/processed/`
