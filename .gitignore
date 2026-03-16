@@ -136,7 +136,7 @@ celerybeat.pid
 
 # Environments
 .env
-.envrc
+.env
 .venv
 env/
 venv/
@@ -210,4 +210,7 @@ __marimo__/
 .DS_Store
 
 # Data local files
-data/interim/*.tmp
+data/
+
+# Claude Code
+settings.local.json
