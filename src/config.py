@@ -36,8 +36,9 @@ APP_ENV = get_env("APP_ENV", "development")
 if APP_ENV not in ("development", "production"):
     raise ValueError(f"APP_ENV must be 'development' or 'production', got: '{APP_ENV}'")
 
-DATA_DIR = PROJECT_ROOT / ("data_sample" if APP_ENV == "development" else "data")
+DATA_DIR = PROJECT_ROOT / "data"
 
+ANALYSIS_DIR = DATA_DIR / "analysis"
 SOURCES_DIR = DATA_DIR / "sources"
 SPORT_PLATFORMS_DIR = SOURCES_DIR / "sport_platforms"
 SPORT_REGISTRIES_DIR = SOURCES_DIR / "sport_registries"
@@ -59,6 +60,9 @@ ENTITIES_DIR = SOURCE_OUTPUT_DIR / "entities"
 
 PROCESSED_DIR = REGISTRY_DIR / "processed"
 QUALITY_DIR = REGISTRY_DIR / "quality"
+
+REGISTRY_COUNTS_CSV = PROCESSED_DIR / "registry_entity_counts_by_province.csv"
+PLATFORM_COUNTS_CSV = PLATFORM_PROCESSED_DIR / "platform_entity_counts_by_province.csv"
 
 SOURCE_URL = get_env("SOURCE_URL", required=True)
 
@@ -105,6 +109,7 @@ if not SOURCE_PROVINCES_TASK_KEY.strip():
 
 for path in (
         DATA_DIR,
+        ANALYSIS_DIR,
         SOURCES_DIR,
         SPORT_PLATFORMS_DIR,
         SPORT_REGISTRIES_DIR,
