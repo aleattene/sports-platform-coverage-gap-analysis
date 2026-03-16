@@ -1,17 +1,19 @@
 import json
-from pathlib import Path
-from scripts.platform_coverage_adapter import adapt_organizations_to_dataframe
+import logging
 
-PROJECT_ROOT = Path(__file__).resolve().parents[1]
-json_path = PROJECT_ROOT / "data" / "raw" / "platform_coverage_mock.json"
+from scripts.platform_coverage_adapter import adapt_organizations_to_dataframe
+from src.config import PLATFORM_PROCESSED_DIR, PLATFORM_RAW_DIR
+
+logger = logging.getLogger(__name__)
+
+json_path = PLATFORM_RAW_DIR / "platform_coverage.json"
 
 with json_path.open("r", encoding="utf-8") as f:
     organizations = json.load(f)
 
 df = adapt_organizations_to_dataframe(organizations)
 
-print(df.head())
-print(df.shape)
+logger.info("Shape: %s", df.shape)
 
-output_path = json_path = PROJECT_ROOT / "data" / "processed" / "platform_coverage_normalized.csv"
+output_path = PLATFORM_PROCESSED_DIR / "platform_coverage_normalized.csv"
 df.to_csv(output_path, index=False)

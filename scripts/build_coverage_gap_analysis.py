@@ -1,23 +1,16 @@
-from pathlib import Path
+import logging
+
 import pandas as pd
 
+from src.config import PLATFORM_PROCESSED_DIR, PROCESSED_DIR
 
-def get_project_root() -> Path:
-    current = Path(__file__).resolve()
-
-    for parent in [current.parent, *current.parents]:
-        if (parent / "data").exists():
-            return parent
-
-    raise RuntimeError("Project root not found. Expected a parent directory containing 'data/'.")
+logger = logging.getLogger(__name__)
 
 
 def main() -> None:
-    project_root = get_project_root()
-
-    market_path = project_root / "data" / "raw" / "market_supply_italy_simulated.csv"
-    coverage_path = project_root / "data" / "processed" / "platform_coverage_by_region_sport.csv"
-    output_path = project_root / "data" / "processed" / "coverage_gap_analysis.csv"
+    market_path = PROCESSED_DIR / "entity_counts_by_province.csv"
+    coverage_path = PLATFORM_PROCESSED_DIR / "platform_coverage_by_region_sport.csv"
+    output_path = PLATFORM_PROCESSED_DIR / "coverage_gap_analysis.csv"
 
     market_df = pd.read_csv(market_path)
     coverage_df = pd.read_csv(coverage_path)
@@ -71,10 +64,9 @@ def main() -> None:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     analysis_df.to_csv(output_path, index=False)
 
-    print("Coverage gap analysis dataset created.")
-    print(f"Saved to: {output_path}")
-    print()
-    print(analysis_df.head(10).to_string(index=False))
+    logger.info("Coverage gap analysis dataset created.")
+    logger.info("Saved to: %s", output_path)
+    logger.info("\n%s", analysis_df.head(10).to_string(index=False))
 
 
 if __name__ == "__main__":

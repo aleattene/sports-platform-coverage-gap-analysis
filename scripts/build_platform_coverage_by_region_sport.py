@@ -1,21 +1,12 @@
-from pathlib import Path
 import pandas as pd
 
-
-def get_project_root() -> Path:
-    p = Path(__file__).resolve()
-    for parent in p.parents:
-        if (parent / "data").exists():
-            return parent
-    raise RuntimeError("Project root not found")
+from src.config import PLATFORM_PROCESSED_DIR
 
 
 def main():
 
-    project_root = get_project_root()
-
-    input_path = project_root / "data" / "processed" / "platform_coverage_normalized.csv"
-    output_path = project_root / "data" / "processed" / "platform_coverage_by_region_sport.csv"
+    input_path = PLATFORM_PROCESSED_DIR / "platform_coverage_normalized.csv"
+    output_path = PLATFORM_PROCESSED_DIR / "platform_coverage_by_region_sport.csv"
 
     df = pd.read_csv(input_path)
 
