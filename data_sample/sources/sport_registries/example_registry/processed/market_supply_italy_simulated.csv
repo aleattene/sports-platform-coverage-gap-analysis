@@ -1,0 +1,201 @@
+region,sport,clubs_estimated
+Abruzzo,calcio,1092
+Abruzzo,volley,280
+Abruzzo,tennis,266
+Abruzzo,basket,252
+Abruzzo,nuoto,196
+Abruzzo,arti_marziali,182
+Abruzzo,atletica,168
+Abruzzo,ginnastica,140
+Abruzzo,ciclismo,112
+Abruzzo,padel,112
+Basilicata,calcio,468
+Basilicata,volley,120
+Basilicata,tennis,114
+Basilicata,basket,108
+Basilicata,nuoto,84
+Basilicata,arti_marziali,78
+Basilicata,atletica,72
+Basilicata,ginnastica,60
+Basilicata,ciclismo,48
+Basilicata,padel,48
+Calabria,calcio,897
+Calabria,volley,230
+Calabria,tennis,219
+Calabria,basket,207
+Calabria,nuoto,161
+Calabria,arti_marziali,149
+Calabria,atletica,138
+Calabria,ginnastica,115
+Calabria,ciclismo,92
+Calabria,padel,92
+Campania,calcio,2528
+Campania,volley,640
+Campania,basket,576
+Campania,tennis,544
+Campania,arti_marziali,480
+Campania,nuoto,448
+Campania,atletica,384
+Campania,ginnastica,320
+Campania,padel,256
+Campania,ciclismo,224
+Emilia-Romagna,calcio,2600
+Emilia-Romagna,tennis,1000
+Emilia-Romagna,basket,840
+Emilia-Romagna,volley,800
+Emilia-Romagna,nuoto,720
+Emilia-Romagna,ciclismo,520
+Emilia-Romagna,atletica,480
+Emilia-Romagna,arti_marziali,400
+Emilia-Romagna,ginnastica,400
+Emilia-Romagna,padel,240
+Friuli-Venezia Giulia,calcio,884
+Friuli-Venezia Giulia,tennis,325
+Friuli-Venezia Giulia,basket,234
+Friuli-Venezia Giulia,volley,234
+Friuli-Venezia Giulia,nuoto,234
+Friuli-Venezia Giulia,ciclismo,169
+Friuli-Venezia Giulia,atletica,156
+Friuli-Venezia Giulia,arti_marziali,130
+Friuli-Venezia Giulia,ginnastica,130
+Friuli-Venezia Giulia,padel,104
+Lazio,calcio,3060
+Lazio,tennis,1080
+Lazio,volley,810
+Lazio,nuoto,765
+Lazio,basket,720
+Lazio,padel,675
+Lazio,atletica,540
+Lazio,arti_marziali,450
+Lazio,ciclismo,450
+Lazio,ginnastica,450
+Liguria,calcio,1023
+Liguria,tennis,388
+Liguria,nuoto,325
+Liguria,volley,279
+Liguria,basket,248
+Liguria,ciclismo,217
+Liguria,atletica,186
+Liguria,arti_marziali,155
+Liguria,ginnastica,155
+Liguria,padel,124
+Lombardia,calcio,4080
+Lombardia,tennis,1500
+Lombardia,basket,1080
+Lombardia,volley,1080
+Lombardia,nuoto,1080
+Lombardia,ciclismo,780
+Lombardia,atletica,720
+Lombardia,arti_marziali,600
+Lombardia,ginnastica,600
+Lombardia,padel,480
+Marche,calcio,1050
+Marche,tennis,360
+Marche,volley,270
+Marche,basket,255
+Marche,nuoto,255
+Marche,atletica,180
+Marche,padel,180
+Marche,arti_marziali,150
+Marche,ciclismo,150
+Marche,ginnastica,150
+Molise,calcio,351
+Molise,volley,90
+Molise,tennis,86
+Molise,basket,81
+Molise,nuoto,63
+Molise,arti_marziali,58
+Molise,atletica,54
+Molise,ginnastica,45
+Molise,ciclismo,36
+Molise,padel,36
+Piemonte,calcio,2376
+Piemonte,tennis,900
+Piemonte,nuoto,720
+Piemonte,basket,648
+Piemonte,volley,648
+Piemonte,ciclismo,468
+Piemonte,atletica,432
+Piemonte,ginnastica,432
+Piemonte,arti_marziali,288
+Piemonte,padel,288
+Puglia,calcio,2184
+Puglia,volley,560
+Puglia,tennis,532
+Puglia,basket,504
+Puglia,nuoto,392
+Puglia,arti_marziali,364
+Puglia,atletica,336
+Puglia,ginnastica,280
+Puglia,ciclismo,224
+Puglia,padel,224
+Sardegna,calcio,900
+Sardegna,tennis,240
+Sardegna,volley,240
+Sardegna,nuoto,240
+Sardegna,basket,216
+Sardegna,atletica,144
+Sardegna,arti_marziali,144
+Sardegna,ginnastica,120
+Sardegna,ciclismo,96
+Sardegna,padel,60
+Sicilia,calcio,2280
+Sicilia,volley,660
+Sicilia,tennis,600
+Sicilia,nuoto,540
+Sicilia,basket,420
+Sicilia,atletica,360
+Sicilia,arti_marziali,360
+Sicilia,ginnastica,300
+Sicilia,ciclismo,240
+Sicilia,padel,240
+Toscana,calcio,2380
+Toscana,tennis,816
+Toscana,volley,612
+Toscana,basket,578
+Toscana,nuoto,578
+Toscana,atletica,408
+Toscana,padel,408
+Toscana,arti_marziali,340
+Toscana,ciclismo,340
+Toscana,ginnastica,340
+Trentino-Alto Adige,calcio,800
+Trentino-Alto Adige,tennis,313
+Trentino-Alto Adige,basket,225
+Trentino-Alto Adige,volley,225
+Trentino-Alto Adige,nuoto,225
+Trentino-Alto Adige,ciclismo,212
+Trentino-Alto Adige,atletica,175
+Trentino-Alto Adige,arti_marziali,125
+Trentino-Alto Adige,ginnastica,125
+Trentino-Alto Adige,padel,75
+Umbria,calcio,665
+Umbria,tennis,228
+Umbria,volley,171
+Umbria,nuoto,162
+Umbria,basket,161
+Umbria,atletica,114
+Umbria,padel,114
+Umbria,arti_marziali,95
+Umbria,ciclismo,95
+Umbria,ginnastica,95
+Valle d'Aosta,calcio,192
+Valle d'Aosta,tennis,69
+Valle d'Aosta,basket,54
+Valle d'Aosta,volley,54
+Valle d'Aosta,nuoto,54
+Valle d'Aosta,ciclismo,51
+Valle d'Aosta,atletica,42
+Valle d'Aosta,arti_marziali,30
+Valle d'Aosta,ginnastica,30
+Valle d'Aosta,padel,24
+Veneto,calcio,2890
+Veneto,tennis,1063
+Veneto,basket,765
+Veneto,volley,765
+Veneto,nuoto,765
+Veneto,ciclismo,552
+Veneto,atletica,510
+Veneto,arti_marziali,425
+Veneto,ginnastica,425
+Veneto,padel,340
