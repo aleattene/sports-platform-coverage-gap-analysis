@@ -145,7 +145,7 @@ This dataset summarizes the relationship between estimated market supply and pla
 The full data pipeline can be executed automatically via GitHub Actions or locally.
 Run locally:
 ```bash
-python src/run_pipeline.py
+python src/run_analysis_pipeline.py
 ```
 The pipeline will generate all processed datasets in: 
 `data/processed/`
