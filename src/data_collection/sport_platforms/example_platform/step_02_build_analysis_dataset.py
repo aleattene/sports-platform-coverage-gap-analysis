@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import logging
 import time
+from pathlib import Path
 from typing import Any
 
 from src.config import (
@@ -35,8 +36,8 @@ def aggregate_by_province(items: list[dict[str, Any]]) -> list[dict[str, str | i
     province_region: dict[str, str] = {}
 
     for item in items:
-        zone = item.get("province_abbr", "")
-        region_code = item.get("region_code", "")
+        zone: str = item.get("province_abbr", "")
+        region_code: str = item.get("region_code", "")
 
         if not zone:
             continue
@@ -67,10 +68,10 @@ def aggregate_by_sport_and_province(items: list[dict[str, Any]]) -> list[dict[st
     province_region: dict[str, str] = {}
 
     for item in items:
-        zone = item.get("province_abbr", "")
-        region_code = item.get("region_code", "")
-        sport = item.get("sport", [])
-        sports = [sport] if isinstance(sport, str) else sport
+        zone: str = item.get("province_abbr", "")
+        region_code: str = item.get("region_code", "")
+        sport: str | list[str] = item.get("sport", [])
+        sports: list[str] = [sport] if isinstance(sport, str) else sport
 
         if not zone or not sports:
             continue
@@ -79,7 +80,7 @@ def aggregate_by_sport_and_province(items: list[dict[str, Any]]) -> list[dict[st
             province_region[zone] = region_code
 
         for sport_key in sports:
-            key = (sport_key, zone)
+            key: tuple[str, str] = (sport_key, zone)
             sport_province_counts[key] = sport_province_counts.get(key, 0) + 1
 
     rows: list[dict[str, str | int]] = []
@@ -99,7 +100,7 @@ def aggregate_by_sport_and_province(items: list[dict[str, Any]]) -> list[dict[st
 def build_csv(
     rows: list[dict[str, Any]],
     fieldnames: list[str],
-    output_path: Any,
+    output_path: Path,
 ) -> None:
     """
     Export rows to CSV.
@@ -107,7 +108,7 @@ def build_csv(
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
     with output_path.open("w", encoding="utf-8", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=fieldnames)
+        writer: csv.DictWriter[str] = csv.DictWriter(f, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(rows)
 
@@ -123,12 +124,12 @@ def main() -> None:
     """
     logger.info("Starting step_02_build_analysis_dataset")
 
-    data = load_json(RAW_INPUT)
+    data: Any = load_json(RAW_INPUT)
 
     if not isinstance(data, dict):
         raise ValueError("Invalid platform entities file format: expected dictionary payload.")
 
-    items = data.get("items", [])
+    items: list[dict[str, Any]] = data.get("items", [])
 
     if not isinstance(items, list):
         raise ValueError("Invalid platform entities file format: expected 'items' to be a list.")
@@ -136,12 +137,12 @@ def main() -> None:
     logger.info("Platform entities loaded: %d", len(items))
 
     # Aggregate by province
-    province_rows = aggregate_by_province(items)
+    province_rows: list[dict[str, str | int]] = aggregate_by_province(items)
 
-    province_fieldnames = ["region_code", "region_name", "province_abbr", "platform_entities"]
+    province_fieldnames: list[str] = ["region_code", "region_name", "province_abbr", "platform_entities"]
     build_csv(province_rows, province_fieldnames, ANALYSIS_CSV_BY_PROVINCE)
 
-    province_json_payload = {
+    province_json_payload: dict[str, Any] = {
         "generated_at_epoch": int(time.time()),
         "dimension": "platform_entity_counts_by_province",
         "count": len(province_rows),
@@ -150,22 +151,22 @@ def main() -> None:
     save_json(province_json_payload, ANALYSIS_JSON_BY_PROVINCE)
 
     # Aggregate by sport and province
-    sport_province_rows = aggregate_by_sport_and_province(items)
+    sport_province_rows: list[dict[str, str | int]] = aggregate_by_sport_and_province(items)
 
-    sport_province_fieldnames = [
+    sport_province_fieldnames: list[str] = [
         "region_code", "region_name", "province_abbr", "sport_key", "platform_entities",
     ]
     build_csv(sport_province_rows, sport_province_fieldnames, ANALYSIS_CSV_BY_SPORT_PROVINCE)
 
     # Quality checks
-    unique_provinces = {item.get("province_abbr") for item in items if item.get("province_abbr")}
-    unique_sports = set()
+    unique_provinces: set[str] = {item.get("province_abbr") for item in items if item.get("province_abbr")}
+    unique_sports: set[str] = set()
     for item in items:
-        sport = item.get("sport", [])
+        sport: str | list[str] = item.get("sport", [])
         for s in ([sport] if isinstance(sport, str) else sport):
             unique_sports.add(s)
 
-    quality_payload = {
+    quality_payload: dict[str, Any] = {
         "generated_at_epoch": int(time.time()),
         "input_file": str(RAW_INPUT.relative_to(PROJECT_ROOT)),
         "dimension": "platform_analysis_dataset_checks",
