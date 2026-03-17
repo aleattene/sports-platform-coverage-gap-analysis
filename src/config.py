@@ -47,16 +47,28 @@ PLATFORM_NAME = get_env("PLATFORM_NAME", "example_platform")
 PLATFORM_DIR = SPORT_PLATFORMS_DIR / PLATFORM_NAME
 PLATFORM_RAW_DIR = PLATFORM_DIR / "raw"
 PLATFORM_PROCESSED_DIR = PLATFORM_DIR / "processed"
+PLATFORM_QUALITY_DIR = PLATFORM_DIR / "quality"
+
+# Platform API configuration (validated at runtime, not at import time)
+PLATFORM_BASE_URL = get_env("PLATFORM_BASE_URL", "")
+PLATFORM_ORGS_ENDPOINT = get_env("PLATFORM_ORGS_ENDPOINT", "")
+PLATFORM_REQUEST_DELAY_S = get_env_int("PLATFORM_REQUEST_DELAY_S", 10)
+PLATFORM_MAX_RETRIES = get_env_int("PLATFORM_MAX_RETRIES", 3)
+PLATFORM_REQUEST_TIMEOUT_S = get_env_int("PLATFORM_REQUEST_TIMEOUT_S", 30)
+
+# Data fetch flags: when true, fetch fresh data from remote sources.
+# When false (default), process existing raw data only.
+FETCH_REGISTRY_DATA = get_env_bool("FETCH_REGISTRY_DATA", False)
+FETCH_PLATFORM_DATA = get_env_bool("FETCH_PLATFORM_DATA", False)
 
 REGISTRY_NAME = get_env("REGISTRY_NAME", "example_registry")
 REGISTRY_DIR = SPORT_REGISTRIES_DIR / REGISTRY_NAME
 
 RAW_DIR = REGISTRY_DIR / "raw"
-SOURCE_OUTPUT_DIR = RAW_DIR / get_env("SOURCE_OUTPUT_SUBDIR", "source")
 
-REGIONS_DIR = SOURCE_OUTPUT_DIR / "regions"
-PROVINCES_DIR = SOURCE_OUTPUT_DIR / "provinces"
-ENTITIES_DIR = SOURCE_OUTPUT_DIR / "entities"
+REGIONS_DIR = RAW_DIR / "regions"
+PROVINCES_DIR = RAW_DIR / "provinces"
+ENTITIES_DIR = RAW_DIR / "entities"
 
 PROCESSED_DIR = REGISTRY_DIR / "processed"
 QUALITY_DIR = REGISTRY_DIR / "quality"
@@ -141,9 +153,9 @@ for path in (
         PLATFORM_DIR,
         PLATFORM_RAW_DIR,
         PLATFORM_PROCESSED_DIR,
+        PLATFORM_QUALITY_DIR,
         REGISTRY_DIR,
         RAW_DIR,
-        SOURCE_OUTPUT_DIR,
         REGIONS_DIR,
         PROVINCES_DIR,
         ENTITIES_DIR,
