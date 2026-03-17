@@ -1,4 +1,3 @@
-import json
 import logging
 from typing import Callable
 
@@ -15,6 +14,7 @@ from src.data_collection.sport_registries.example_registry.step_03_retrieve_enti
 from src.data_collection.sport_registries.example_registry.step_04_build_analysis_dataset import (
     main as step_04,
 )
+from src.utils.input_output import save_json
 from src.utils.logging import configure_logging
 from src.utils.runtime import elapsed_seconds, format_duration, start_timer, utc_now_iso
 
@@ -90,11 +90,7 @@ def main() -> None:
     }
 
     summary_path = QUALITY_DIR / "pipeline_run_summary.json"
-    summary_path.parent.mkdir(parents=True, exist_ok=True)
-    summary_path.write_text(
-        json.dumps(pipeline_summary, ensure_ascii=False, indent=2),
-        encoding="utf-8",
-    )
+    save_json(pipeline_summary, summary_path)
 
     logger.info("Pipeline %s", pipeline_status)
     logger.info("Summary: %s", summary_path)

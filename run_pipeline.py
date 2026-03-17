@@ -1,14 +1,13 @@
-import json
 import logging
-from pathlib import Path
 
 from src.config import DEV_MODE, LOG_LEVEL, PLATFORM_RAW_DIR, QUALITY_DIR
 from src.data_collection.sport_platforms.example_platform.data_processing import (
     main as run_platform_processing,
 )
-from src.data_collection.sport_registries.example_registry.run_pipeline import (
+from src.data_collection.sport_registries.example_registry.registry_pipeline import (
     main as run_registry_pipeline,
 )
+from src.utils.input_output import save_json
 from src.utils.logging import configure_logging
 from src.utils.runtime import elapsed_seconds, format_duration, start_timer, utc_now_iso
 
@@ -91,11 +90,7 @@ def main() -> None:
     }
 
     summary_path = QUALITY_DIR / "project_pipeline_run_summary.json"
-    summary_path.parent.mkdir(parents=True, exist_ok=True)
-    summary_path.write_text(
-        json.dumps(pipeline_summary, ensure_ascii=False, indent=2),
-        encoding="utf-8",
-    )
+    save_json(pipeline_summary, summary_path)
 
     logger.info("Pipeline %s", pipeline_status)
     logger.info("Summary: %s", summary_path)
