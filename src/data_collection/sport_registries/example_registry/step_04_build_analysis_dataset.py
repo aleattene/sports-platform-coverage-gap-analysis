@@ -3,7 +3,7 @@ import logging
 import time
 from typing import Any
 
-from src.config import LOG_LEVEL, PROCESSED_DIR, QUALITY_DIR, REGISTRY_COUNTS_CSV
+from src.config import LOG_LEVEL, PROCESSED_DIR, PROJECT_ROOT, QUALITY_DIR, REGISTRY_COUNTS_CSV
 from src.utils.input_output import load_json, save_json
 from src.utils.logging import configure_logging
 
@@ -118,7 +118,7 @@ def main() -> None:
 
     quality_payload = {
         "generated_at_epoch": int(time.time()),
-        "input_file": str(COUNTS_INPUT_FILE),
+        "input_file": str(COUNTS_INPUT_FILE.relative_to(PROJECT_ROOT)),
         "dimension": "registry_entity_counts_by_province_quality_checks",
         "count": len(quality_rows),
         "items": quality_rows,
