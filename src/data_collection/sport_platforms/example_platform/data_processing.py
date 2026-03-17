@@ -13,41 +13,41 @@ RAW_INPUT = PLATFORM_RAW_DIR / "platform_coverage.json"
 PROCESSED_OUTPUT = PLATFORM_COUNTS_CSV
 
 
-def aggregate_by_province(organizations: list[dict[str, Any]]) -> list[dict[str, str | int]]:
+def aggregate_by_province(entities: list[dict[str, Any]]) -> list[dict[str, str | int]]:
     """
-    Aggregate platform organizations by province (zone), counting unique organization IDs.
+    Aggregate platform entities by province (zone), counting unique entity IDs.
     """
-    province_orgs: dict[str, set[str]] = {}
+    province_entity_ids: dict[str, set[str]] = {}
     province_region: dict[str, str] = {}
 
-    for org in organizations:
-        if not isinstance(org, dict):
+    for entity in entities:
+        if not isinstance(entity, dict):
             continue
 
-        address = org.get("address") or {}
+        address = entity.get("address") or {}
         if not isinstance(address, dict):
             continue
 
         zone = address.get("zone")
         region_code = address.get("region")
-        org_id = org.get("organizationId")
+        entity_id = entity.get("organizationId")
 
-        if not zone or not org_id:
+        if not zone or not entity_id:
             continue
 
-        province_orgs.setdefault(zone, set()).add(org_id)
+        province_entity_ids.setdefault(zone, set()).add(entity_id)
 
         if zone not in province_region and region_code:
             province_region[zone] = region_code
 
     rows: list[dict[str, str | int]] = []
-    for zone in sorted(province_orgs):
+    for zone in sorted(province_entity_ids):
         region_code = province_region.get(zone, "")
         rows.append({
             "region_code": region_code,
             "region_name": REGION_CODE_TO_NAME.get(region_code, region_code),
             "province_abbr": zone,
-            "platform_entities": len(province_orgs[zone]),
+            "platform_entities": len(province_entity_ids[zone]),
         })
 
     return rows
@@ -56,14 +56,14 @@ def aggregate_by_province(organizations: list[dict[str, Any]]) -> list[dict[str,
 def main() -> None:
     logger.info("Starting platform data processing")
 
-    organizations = load_json(RAW_INPUT)
+    entities = load_json(RAW_INPUT)
 
-    if not isinstance(organizations, list):
+    if not isinstance(entities, list):
         raise ValueError(f"Expected a JSON array in {RAW_INPUT}")
 
-    logger.info("Raw organizations loaded: %s", len(organizations))
+    logger.info("Raw entities loaded: %s", len(entities))
 
-    rows = aggregate_by_province(organizations)
+    rows = aggregate_by_province(entities)
 
     fieldnames = ["region_code", "region_name", "province_abbr", "platform_entities"]
 
