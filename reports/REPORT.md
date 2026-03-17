@@ -67,4 +67,4 @@ The analysis highlights a clear opportunity for geographic expansion. The platfo
 
 ## Notebook
 
-The full exploratory analysis is available in [`notebooks/03_coverage_gap_analysis.ipynb`](../notebooks/03_coverage_gap_analysis.ipynb).
+The full exploratory analysis is available in [`notebooks/03_coverage_gap_analysis.ipynb`](../notebooks/01_coverage_gap_analysis.ipynb).
