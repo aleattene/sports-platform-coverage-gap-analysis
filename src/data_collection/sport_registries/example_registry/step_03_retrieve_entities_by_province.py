@@ -38,7 +38,7 @@ configure_logging(LOG_LEVEL)
 logger = logging.getLogger(__name__)
 
 COUNTS_OUTPUT_FILE = PROCESSED_DIR / "entity_counts.json"
-QUALITY_OUTPUT_FILE = QUALITY_DIR / "province_counts_checks.json"
+QUALITY_OUTPUT_FILE = QUALITY_DIR / "entity_counts_checks.json"
 
 
 def load_province_files(provinces_dir: Path) -> list[Path]:
@@ -274,7 +274,9 @@ def run_province_with_retry(
                     province_name,
                 )
 
-    raise last_exc
+    if last_exc is not None:
+        raise last_exc
+    raise RuntimeError(f"No retry attempts executed for {region_name} / {province_name}")
 
 
 def main() -> None:

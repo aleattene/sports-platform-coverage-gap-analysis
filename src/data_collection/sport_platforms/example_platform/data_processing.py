@@ -2,35 +2,12 @@ import csv
 import logging
 from typing import Any
 
-from src.config import LOG_LEVEL, PLATFORM_COUNTS_CSV, PLATFORM_PROCESSED_DIR, PLATFORM_RAW_DIR
+from src.config import LOG_LEVEL, PLATFORM_COUNTS_CSV, PLATFORM_RAW_DIR, REGION_CODE_TO_NAME
 from src.utils.input_output import load_json
 from src.utils.logging import configure_logging
 
 configure_logging(LOG_LEVEL)
 logger = logging.getLogger(__name__)
-
-REGION_CODE_TO_NAME: dict[str, str] = {
-    "ABR": "Abruzzo",
-    "BAS": "Basilicata",
-    "CAL": "Calabria",
-    "CAM": "Campania",
-    "EMR": "Emilia-Romagna",
-    "FVG": "Friuli-Venezia Giulia",
-    "LAZ": "Lazio",
-    "LIG": "Liguria",
-    "LOM": "Lombardia",
-    "MAR": "Marche",
-    "MOL": "Molise",
-    "PIE": "Piemonte",
-    "PUG": "Puglia",
-    "SAR": "Sardegna",
-    "SIC": "Sicilia",
-    "TOS": "Toscana",
-    "TAA": "Trentino-Alto Adige/Südtirol",
-    "UMB": "Umbria",
-    "VDA": "Valle d'Aosta/Vallée d'Aoste",
-    "VEN": "Veneto",
-}
 
 RAW_INPUT = PLATFORM_RAW_DIR / "platform_coverage.json"
 PROCESSED_OUTPUT = PLATFORM_COUNTS_CSV

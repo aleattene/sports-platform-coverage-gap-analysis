@@ -43,7 +43,7 @@ jobs:
 #        env:
 #          PYTHONPATH: ${{ github.workspace }}
 #        run: |
-#          jupyter nbconvert --to notebook --execute --inplace notebooks/03_coverage_gap_analysis.ipynb
+#          jupyter nbconvert --to notebook --execute --inplace notebooks/01_coverage_gap_analysis.ipynb
 
 #      - name: Build notebook HTML
 #        run: |
@@ -57,7 +57,7 @@ jobs:
 #          name: coverage-analysis-output
 #          path: |
 #            data/processed/**
-#            notebooks/03_coverage_gap_analysis.ipynb
+#            notebooks/01_coverage_gap_analysis.ipynb
 #            site/**
 #          retention-days: 14
 #

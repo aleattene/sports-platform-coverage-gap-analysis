@@ -64,6 +64,31 @@ QUALITY_DIR = REGISTRY_DIR / "quality"
 REGISTRY_COUNTS_CSV = PROCESSED_DIR / "registry_entity_counts_by_province.csv"
 PLATFORM_COUNTS_CSV = PLATFORM_PROCESSED_DIR / "platform_entity_counts_by_province.csv"
 
+# Italian region code-to-name mapping (ISO 3166-2:IT based).
+# Used by platform data processing to resolve 3-letter codes to full names.
+REGION_CODE_TO_NAME: dict[str, str] = {
+    "ABR": "Abruzzo",
+    "BAS": "Basilicata",
+    "CAL": "Calabria",
+    "CAM": "Campania",
+    "EMR": "Emilia-Romagna",
+    "FVG": "Friuli-Venezia Giulia",
+    "LAZ": "Lazio",
+    "LIG": "Liguria",
+    "LOM": "Lombardia",
+    "MAR": "Marche",
+    "MOL": "Molise",
+    "PIE": "Piemonte",
+    "PUG": "Puglia",
+    "SAR": "Sardegna",
+    "SIC": "Sicilia",
+    "TOS": "Toscana",
+    "TAA": "Trentino-Alto Adige/Südtirol",
+    "UMB": "Umbria",
+    "VDA": "Valle d'Aosta/Vallée d'Aoste",
+    "VEN": "Veneto",
+}
+
 SOURCE_URL = get_env("SOURCE_URL", required=True)
 
 SOURCE_REGION_SELECT_NAME = get_env("SOURCE_REGION_SELECT_NAME")
@@ -88,7 +113,7 @@ CARDS_CONTAINER_TIMEOUT_MS = get_env_int("CARDS_CONTAINER_TIMEOUT_MS", 10000)
 LOG_LEVEL = get_env("LOG_LEVEL", "INFO")
 
 # Dev sampling: when DEV_MODE=true, step_03 randomly samples a subset of
-# regions/provinces instead of scraping all ~107 provinces.
+# regions/provinces instead of collecting all ~107 provinces.
 # Set DEV_MODE=false (or unset) for a full production run.
 DEV_MODE = get_env_bool("DEV_MODE", False)
 DEV_SAMPLE_REGIONS = get_env_int("DEV_SAMPLE_REGIONS", 3)
