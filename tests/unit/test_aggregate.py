@@ -4,7 +4,6 @@ import csv
 from pathlib import Path
 from typing import Any
 
-import pytest
 from src.data_collection.sport_platforms.example_platform.step_02_build_analysis_dataset import (
     aggregate_by_province,
     aggregate_by_sport_and_province,

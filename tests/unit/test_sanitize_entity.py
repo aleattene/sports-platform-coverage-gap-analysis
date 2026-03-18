@@ -1,6 +1,5 @@
 """Tests for sanitize_entity — privacy-critical field extraction."""
 
-import pytest
 from typing import Any
 from src.data_collection.sport_platforms.example_platform.step_01_retrieve_entities import (
     sanitize_entity,
