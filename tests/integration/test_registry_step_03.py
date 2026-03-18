@@ -7,7 +7,7 @@ count extraction, retry logic, quality checks, and output structure.
 import json
 from pathlib import Path
 from typing import Any
-from unittest.mock import MagicMock, PropertyMock
+from unittest.mock import MagicMock
 
 import pytest
 
@@ -265,3 +265,61 @@ class TestLoadProvinceFiles:
     def test_raises_on_empty_dir(self, tmp_path: Path) -> None:
         with pytest.raises(FileNotFoundError):
             step_03_mod.load_province_files(tmp_path)
+
+
+class TestExtractTotalResults:
+
+    @staticmethod
+    def _build_page(inner_text: str, *, visible: bool = True) -> MagicMock:
+        page = MagicMock()
+        locator = MagicMock()
+        locator.is_visible.return_value = visible
+        locator.inner_text.return_value = inner_text
+        page.locator.return_value = MagicMock(first=locator)
+        return page
+
+    def test_parses_plain_number(self) -> None:
+        page = self._build_page("1234")
+        assert step_03_mod.extract_total_results(page) == 1234
+
+    def test_extracts_digits_from_mixed_text(self) -> None:
+        page = self._build_page("Risultati: 1.500 trovati")
+        assert step_03_mod.extract_total_results(page) == 1500
+
+    def test_returns_none_when_not_visible(self) -> None:
+        page = self._build_page("1234", visible=False)
+        assert step_03_mod.extract_total_results(page) is None
+
+    def test_returns_none_when_no_digits(self) -> None:
+        page = self._build_page("Nessun risultato")
+        assert step_03_mod.extract_total_results(page) is None
+
+    def test_falls_back_to_second_selector(self) -> None:
+        page = MagicMock()
+        first_locator = MagicMock()
+        first_locator.is_visible.side_effect = Exception("not found")
+        second_locator = MagicMock()
+        second_locator.is_visible.return_value = True
+        second_locator.inner_text.return_value = "42"
+        page.locator.return_value = MagicMock(
+            first=MagicMock(side_effect=[first_locator, second_locator]),
+        )
+        # Re-build so each locator() call returns a different .first
+        call_count = {"n": 0}
+        locators = [first_locator, second_locator]
+
+        def _locator_factory(selector: str) -> MagicMock:
+            m = MagicMock()
+            m.first = locators[call_count["n"]]
+            call_count["n"] += 1
+            return m
+
+        page.locator = _locator_factory
+        assert step_03_mod.extract_total_results(page) == 42
+
+    def test_returns_none_when_all_selectors_fail(self) -> None:
+        page = MagicMock()
+        locator = MagicMock()
+        locator.is_visible.side_effect = Exception("timeout")
+        page.locator.return_value = MagicMock(first=locator)
+        assert step_03_mod.extract_total_results(page) is None
