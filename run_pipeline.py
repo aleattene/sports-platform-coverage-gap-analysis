@@ -1,11 +1,10 @@
 import logging
+from collections.abc import Callable
 
-from src.config import DEV_MODE, LOG_LEVEL, PLATFORM_RAW_DIR, QUALITY_DIR
-from src.data_collection.sport_platforms.example_platform.data_processing import (
-    main as run_platform_processing,
-)
-from src.data_collection.sport_registries.example_registry.registry_pipeline import (
-    main as run_registry_pipeline,
+from src.config import (
+    DEV_MODE,
+    LOG_LEVEL,
+    QUALITY_DIR,
 )
 from src.utils.input_output import save_json
 from src.utils.logging import configure_logging
@@ -14,7 +13,27 @@ from src.utils.runtime import elapsed_seconds, format_duration, start_timer, utc
 configure_logging(LOG_LEVEL)
 logger = logging.getLogger(__name__)
 
-PLATFORM_RAW_INPUT = PLATFORM_RAW_DIR / "platform_coverage.json"
+
+def _run_step(step_name: str, step_fn: Callable[[], None]) -> tuple[dict[str, object], str]:
+    """
+    Run a pipeline step, returning (step_result_dict, status).
+    """
+
+    step_started_at_utc = utc_now_iso()
+    step_timer = start_timer()
+    try:
+        step_fn()
+        status = "ok"
+    except Exception:
+        logger.exception("%s failed", step_name)
+        status = "failed"
+
+    return {
+        "step_name": step_name,
+        "started_at_utc": step_started_at_utc,
+        "duration_seconds": elapsed_seconds(step_timer),
+        "status": status,
+    }, status
 
 
 def main() -> None:
@@ -29,51 +48,33 @@ def main() -> None:
     step_runs: list[dict[str, object]] = []
     pipeline_status = "ok"
 
-    # --- Step 1: Registry pipeline ---
-    step_started_at_utc = utc_now_iso()
-    step_timer = start_timer()
-    try:
-        logger.info("Running registry pipeline")
-        run_registry_pipeline()
-        status = "ok"
-    except Exception:
-        logger.exception("Registry pipeline failed")
-        status = "failed"
+    # --- Registry pipeline (fetch controlled internally via FETCH_REGISTRY_DATA) ---
+    from src.data_collection.sport_registries.example_registry.registry_pipeline import (
+        main as run_registry_pipeline,
+    )
+
+    logger.info("Running registry pipeline")
+    step_result, status = _run_step("registry_pipeline", run_registry_pipeline)
+    step_runs.append(step_result)
+
+    if status == "failed":
         pipeline_status = "failed"
-
-    step_runs.append({
-        "step_name": "registry_pipeline",
-        "started_at_utc": step_started_at_utc,
-        "duration_seconds": elapsed_seconds(step_timer),
-        "status": status,
-    })
-
-    if pipeline_status == "failed":
         logger.error("Pipeline stopping after registry failure")
+
+    # --- Platform pipeline (fetch controlled internally via FETCH_PLATFORM_DATA) ---
+    if pipeline_status != "failed":
+        from src.data_collection.sport_platforms.example_platform.platform_pipeline import (
+            main as run_platform_pipeline,
+        )
+
+        logger.info("Running platform pipeline")
+        step_result, status = _run_step("platform_pipeline", run_platform_pipeline)
+        step_runs.append(step_result)
+
+        if status == "failed":
+            pipeline_status = "failed"
     else:
-        # --- Step 2: Platform data processing (static) ---
-        step_started_at_utc = utc_now_iso()
-        step_timer = start_timer()
-
-        if PLATFORM_RAW_INPUT.exists():
-            try:
-                logger.info("Running platform data processing")
-                run_platform_processing()
-                status = "ok"
-            except Exception:
-                logger.exception("Platform data processing failed")
-                status = "failed"
-                pipeline_status = "failed"
-        else:
-            logger.warning("Platform raw data not found at %s — skipping", PLATFORM_RAW_INPUT)
-            status = "skipped"
-
-        step_runs.append({
-            "step_name": "platform_data_processing",
-            "started_at_utc": step_started_at_utc,
-            "duration_seconds": elapsed_seconds(step_timer),
-            "status": status,
-        })
+        logger.error("Platform pipeline skipped due to previous failure")
 
     pipeline_duration_seconds = elapsed_seconds(pipeline_timer)
     pipeline_duration_hms = format_duration(pipeline_duration_seconds)
