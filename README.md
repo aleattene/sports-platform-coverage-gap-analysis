@@ -1,7 +1,7 @@
 # Sports Platform Coverage Gap Analysis
 
 ![CI](https://github.com/aleattene/sports-platform-coverage-gap-analysis/actions/workflows/ci.yml/badge.svg)
-![Coverage](https://img.shields.io/badge/Coverage-97%25-brightgreen)
+[![Coverage](https://codecov.io/gh/aleattene/sports-platform-coverage-gap-analysis/branch/main/graph/badge.svg)](https://codecov.io/gh/aleattene/sports-platform-coverage-gap-analysis)
 ![Python](https://img.shields.io/badge/Python-3.13-blue)
 ![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-blue)
 ![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange)
