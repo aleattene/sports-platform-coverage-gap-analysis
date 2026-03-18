@@ -6,8 +6,26 @@ without explicit imports — pytest discovers conftest.py files
 by walking up the directory tree from each test file.
 """
 
-import pytest
+import os
 from typing import Any
+
+import pytest
+
+# ---------------------------------------------------------------------------
+# Safe defaults for environment variables required by src.config at import time.
+# Without these, importing any src.* module in a clean environment (CI, fresh
+# clone) would raise ValueError because SOURCE_URL is required and the
+# SOURCE_*_SELECT_NAME / SOURCE_*_TASK_KEY variables are validated non-empty.
+# ---------------------------------------------------------------------------
+_CONFIG_DEFAULTS: dict[str, str] = {
+    "SOURCE_URL": "https://test.example.com",
+    "SOURCE_REGION_SELECT_NAME": "test_region",
+    "SOURCE_PROVINCE_SELECT_NAME": "test_province",
+    "SOURCE_PROVINCES_TASK_KEY": "test_task_key",
+}
+
+for key, value in _CONFIG_DEFAULTS.items():
+    os.environ.setdefault(key, value)
 
 
 # ---------------------------------------------------------------------------
