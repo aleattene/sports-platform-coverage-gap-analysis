@@ -1,6 +1,5 @@
 """Tests for src.utils.strings — slugify function."""
 
-import pytest
 from src.utils.strings import slugify
 
 
