@@ -1,4 +1,5 @@
 import logging
+from collections.abc import Callable
 
 from src.config import (
     DEV_MODE,
@@ -15,12 +16,10 @@ configure_logging(LOG_LEVEL)
 logger = logging.getLogger(__name__)
 
 
-def _run_step(step_name: str, step_fn: object) -> tuple[dict[str, object], str]:
+def _run_step(step_name: str, step_fn: Callable[[], None]) -> tuple[dict[str, object], str]:
     """
     Run a pipeline step, returning (step_result_dict, status).
     """
-    from typing import Callable
-    assert callable(step_fn)
 
     step_started_at_utc = utc_now_iso()
     step_timer = start_timer()
