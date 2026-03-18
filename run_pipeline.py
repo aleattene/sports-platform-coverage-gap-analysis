@@ -4,7 +4,7 @@ from collections.abc import Callable
 from src.config import (
     DEV_MODE,
     LOG_LEVEL,
-    QUALITY_DIR,
+    PROJECT_QUALITY_DIR,
 )
 from src.utils.input_output import save_json
 from src.utils.logging import configure_logging
@@ -90,7 +90,7 @@ def main() -> None:
         "status": pipeline_status,
     }
 
-    summary_path = QUALITY_DIR / "project_pipeline_run_summary.json"
+    summary_path = PROJECT_QUALITY_DIR / "project_pipeline_run_summary.json"
     save_json(pipeline_summary, summary_path)
 
     logger.info("Pipeline %s", pipeline_status)

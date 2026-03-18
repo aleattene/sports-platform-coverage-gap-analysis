@@ -38,6 +38,7 @@ if APP_ENV not in ("development", "production"):
 DATA_DIR = PROJECT_ROOT / "data"
 
 ANALYSIS_DIR = DATA_DIR / "analysis"
+PROJECT_QUALITY_DIR = DATA_DIR / "quality"
 SOURCES_DIR = DATA_DIR / "sources"
 SPORT_PLATFORMS_DIR = SOURCES_DIR / "sport_platforms"
 SPORT_REGISTRIES_DIR = SOURCES_DIR / "sport_registries"
@@ -146,6 +147,7 @@ if not SOURCE_PROVINCES_TASK_KEY.strip():
 for path in (
         DATA_DIR,
         ANALYSIS_DIR,
+        PROJECT_QUALITY_DIR,
         SOURCES_DIR,
         SPORT_PLATFORMS_DIR,
         SPORT_REGISTRIES_DIR,
