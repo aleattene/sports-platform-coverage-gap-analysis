@@ -1,0 +1,18 @@
+# -- Pytest configuration --
+# Docs: https://docs.pytest.org/en/stable/reference/customize.html
+[tool.pytest.ini_options]
+testpaths = ["tests"]       # Directory where pytest discovers test files
+pythonpath = ["."]           # Allows 'from src.xxx import ...' in tests
+
+# -- Coverage: data collection --
+# Docs: https://coverage.readthedocs.io/en/latest/config.html
+[tool.coverage.run]
+source = ["src"]             # Only measure coverage on project source code
+omit = [
+    "src/utils/browser.py",  # Requires a real Playwright browser, tested manually
+]
+
+# -- Coverage: reporting --
+[tool.coverage.report]
+fail_under = 85              # CI fails if total coverage drops below 85%
+show_missing = true          # Show uncovered line numbers in the report

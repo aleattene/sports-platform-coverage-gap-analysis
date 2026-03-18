@@ -26,6 +26,6 @@ def format_duration(seconds: float) -> str:
     if minutes: duration.append(f"{minutes:02d}:")
 
     secs = seconds % 60
-    duration.append(f"{secs:05.3f}")
+    duration.append(f"{secs:06.3f}")
 
     return "".join(duration)
