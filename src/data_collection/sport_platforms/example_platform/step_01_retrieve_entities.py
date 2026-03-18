@@ -47,7 +47,12 @@ def sanitize_entity(raw_item: Any) -> dict[str, Any] | None:
     if not raw_sport or not zone or not region:
         return None
 
-    sport: list[str] = [raw_sport] if isinstance(raw_sport, str) else raw_sport
+    if isinstance(raw_sport, str):
+        sport: list[str] = [raw_sport]
+    elif isinstance(raw_sport, list) and all(isinstance(s, str) for s in raw_sport):
+        sport = raw_sport
+    else:
+        return None
 
     return {
         "sport": sport,
