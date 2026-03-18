@@ -7,7 +7,7 @@ generation, quality checks, and error handling without any browser or network.
 import json
 from pathlib import Path
 from typing import Any
-from unittest.mock import MagicMock, PropertyMock
+from unittest.mock import MagicMock
 
 import pytest
 
@@ -60,7 +60,7 @@ def _build_playwright_mock(provinces_by_region: dict[str, list[dict[str, Any]]])
 
         response_mock = MagicMock()
         response_mock.json.return_value = provinces_by_region[region_key]
-        type(ctx).value = PropertyMock(return_value=response_mock)
+        ctx.value = response_mock
 
         ctx.__enter__ = MagicMock(return_value=ctx)
         ctx.__exit__ = MagicMock(return_value=False)
@@ -185,7 +185,7 @@ class TestStep02Main:
             else:
                 response_mock = MagicMock()
                 response_mock.json.return_value = FAKE_PROVINCES["12"]
-                type(ctx).value = PropertyMock(return_value=response_mock)
+                ctx.value = response_mock
                 ctx.__enter__ = MagicMock(return_value=ctx)
             ctx.__exit__ = MagicMock(return_value=False)
             return ctx
