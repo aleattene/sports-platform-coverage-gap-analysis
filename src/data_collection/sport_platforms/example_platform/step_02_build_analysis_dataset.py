@@ -70,8 +70,7 @@ def aggregate_by_sport_and_province(items: list[dict[str, Any]]) -> list[dict[st
     for item in items:
         zone: str = item.get("province_abbr", "")
         region_code: str = item.get("region_code", "")
-        sport: str | list[str] = item.get("sport", [])
-        sports: list[str] = [sport] if isinstance(sport, str) else sport
+        sports: list[str] = item.get("sport", [])
 
         if not zone or not sports:
             continue
@@ -162,8 +161,7 @@ def main() -> None:
     unique_provinces: set[str] = {item.get("province_abbr") for item in items if item.get("province_abbr")}
     unique_sports: set[str] = set()
     for item in items:
-        sport: str | list[str] = item.get("sport", [])
-        for s in ([sport] if isinstance(sport, str) else sport):
+        for s in item.get("sport", []):
             unique_sports.add(s)
 
     quality_payload: dict[str, Any] = {

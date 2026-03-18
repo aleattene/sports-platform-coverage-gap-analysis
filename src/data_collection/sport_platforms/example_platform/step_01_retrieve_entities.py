@@ -40,12 +40,14 @@ def sanitize_entity(raw_item: Any) -> dict[str, Any] | None:
     if not isinstance(address, dict):
         return None
 
-    sport = raw_item.get("sport")
-    zone = address.get("zone")
-    region = address.get("region")
+    raw_sport: Any = raw_item.get("sport")
+    zone: str | None = address.get("zone")
+    region: str | None = address.get("region")
 
-    if not sport or not zone or not region:
+    if not raw_sport or not zone or not region:
         return None
+
+    sport: list[str] = [raw_sport] if isinstance(raw_sport, str) else raw_sport
 
     return {
         "sport": sport,
