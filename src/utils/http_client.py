@@ -40,8 +40,15 @@ def fetch_json_with_retry(
             data = response.json()
             logger.info("Response OK — %d items", len(data) if isinstance(data, list) else 1)
             return data
-        except (httpx.HTTPStatusError, httpx.RequestError) as exc:
-            logger.warning("Attempt %d/%d failed: %s", attempt, max_retries, exc)
+        except (httpx.HTTPStatusError, httpx.RequestError, ValueError) as exc:
+            if isinstance(exc, ValueError):
+                snippet: str = response.text[:200]
+                logger.warning(
+                    "Attempt %d/%d — invalid JSON (status %d): %s | body: %s",
+                    attempt, max_retries, response.status_code, exc, snippet,
+                )
+            else:
+                logger.warning("Attempt %d/%d failed: %s", attempt, max_retries, exc)
             if attempt == max_retries:
                 raise
             delay = base_delay_s * (2 ** (attempt - 1))
