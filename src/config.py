@@ -56,8 +56,9 @@ PLATFORM_REQUEST_DELAY_S = get_env_int("PLATFORM_REQUEST_DELAY_S", 10)
 PLATFORM_MAX_RETRIES = get_env_int("PLATFORM_MAX_RETRIES", 3)
 PLATFORM_REQUEST_TIMEOUT_S = get_env_int("PLATFORM_REQUEST_TIMEOUT_S", 30)
 
-# Data fetch flags: when true, fetch fresh data from remote sources.
-# When false (default), process existing raw data only.
+# Data fetch flags: control whether pipelines fetch fresh data from remote sources.
+# When true: run full pipeline (fetch + process).
+# When false (default): skip fetch steps, process existing raw data only.
 FETCH_REGISTRY_DATA = get_env_bool("FETCH_REGISTRY_DATA", False)
 FETCH_PLATFORM_DATA = get_env_bool("FETCH_PLATFORM_DATA", False)
 

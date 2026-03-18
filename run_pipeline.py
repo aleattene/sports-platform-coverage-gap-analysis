@@ -3,8 +3,6 @@ from collections.abc import Callable
 
 from src.config import (
     DEV_MODE,
-    FETCH_PLATFORM_DATA,
-    FETCH_REGISTRY_DATA,
     LOG_LEVEL,
     QUALITY_DIR,
 )
@@ -44,35 +42,26 @@ def main() -> None:
     if DEV_MODE:
         logger.info("DEV_MODE enabled")
 
-    logger.info(
-        "FETCH_REGISTRY_DATA=%s  FETCH_PLATFORM_DATA=%s",
-        FETCH_REGISTRY_DATA, FETCH_PLATFORM_DATA,
-    )
-
     pipeline_started_at_utc = utc_now_iso()
     pipeline_timer = start_timer()
 
     step_runs: list[dict[str, object]] = []
     pipeline_status = "ok"
 
-    # --- Registry pipeline ---
+    # --- Registry pipeline (fetch controlled internally via FETCH_REGISTRY_DATA) ---
     from src.data_collection.sport_registries.example_registry.registry_pipeline import (
         main as run_registry_pipeline,
     )
 
-    if FETCH_REGISTRY_DATA:
-        logger.info("Running registry pipeline (fetch enabled)")
-        step_result, status = _run_step("registry_pipeline", run_registry_pipeline)
-        step_runs.append(step_result)
+    logger.info("Running registry pipeline")
+    step_result, status = _run_step("registry_pipeline", run_registry_pipeline)
+    step_runs.append(step_result)
 
-        if status == "failed":
-            pipeline_status = "failed"
-            logger.error("Pipeline stopping after registry failure")
-    else:
-        logger.info("Registry data fetch skipped (FETCH_REGISTRY_DATA=false)")
-        step_runs.append({"step_name": "registry_pipeline", "status": "skipped"})
+    if status == "failed":
+        pipeline_status = "failed"
+        logger.error("Pipeline stopping after registry failure")
 
-    # --- Platform pipeline (always runs, fetch controlled internally) ---
+    # --- Platform pipeline (fetch controlled internally via FETCH_PLATFORM_DATA) ---
     if pipeline_status != "failed":
         from src.data_collection.sport_platforms.example_platform.platform_pipeline import (
             main as run_platform_pipeline,
