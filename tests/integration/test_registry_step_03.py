@@ -100,7 +100,7 @@ def tmp_dirs(tmp_path: Path) -> dict[str, Path]:
 @pytest.fixture
 def _patch_dirs(monkeypatch: pytest.MonkeyPatch, tmp_dirs: dict[str, Path]) -> dict[str, Path]:
     monkeypatch.setattr(step_03_mod, "PROVINCES_DIR", tmp_dirs["provinces"])
-    monkeypatch.setattr(step_03_mod, "COUNTS_OUTPUT_FILE", tmp_dirs["processed"] / "entity_counts.json")
+    monkeypatch.setattr(step_03_mod, "COUNTS_OUTPUT_FILE", tmp_dirs["processed"] / "registry_entity_counts_by_province.json")
     monkeypatch.setattr(step_03_mod, "QUALITY_OUTPUT_FILE", tmp_dirs["quality"] / "entity_counts_checks.json")
     monkeypatch.setattr(step_03_mod, "DEV_MODE", False)
     # Speed up: no waits
@@ -136,7 +136,7 @@ class TestStep03Main:
 
         step_03_mod.main()
 
-        output_file = _patch_dirs["processed"] / "entity_counts.json"
+        output_file = _patch_dirs["processed"] / "registry_entity_counts_by_province.json"
         assert output_file.exists()
         data = json.loads(output_file.read_text(encoding="utf-8"))
         assert data["dimension"] == "province_entity_counts"
@@ -171,7 +171,7 @@ class TestStep03Main:
         step_03_mod.main()
 
         data = json.loads(
-            (_patch_dirs["processed"] / "entity_counts.json").read_text(encoding="utf-8")
+            (_patch_dirs["processed"] / "registry_entity_counts_by_province.json").read_text(encoding="utf-8")
         )
         assert data["count"] == 2
 

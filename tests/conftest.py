@@ -125,7 +125,7 @@ def sample_registry_items() -> list[dict[str, Any]]:
 def sample_registry_payload(
     sample_registry_items: list[dict[str, Any]],
 ) -> dict[str, Any]:
-    """A complete entity_counts.json payload as produced by step_03."""
+    """A complete registry_entity_counts_by_province.json payload as produced by step_03."""
     return {
         "generated_at_epoch": 1710511822,
         "dimension": "province_entity_counts",

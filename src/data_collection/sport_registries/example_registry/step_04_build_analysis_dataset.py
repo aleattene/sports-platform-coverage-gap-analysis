@@ -12,7 +12,7 @@ configure_logging(LOG_LEVEL)
 logger = logging.getLogger(__name__)
 
 
-COUNTS_INPUT_FILE = PROCESSED_DIR / "entity_counts.json"
+COUNTS_INPUT_FILE = PROCESSED_DIR / "registry_entity_counts_by_province.json"
 ANALYSIS_JSON_FILE = PROCESSED_DIR / "registry_entity_counts_by_province.json"
 ANALYSIS_CSV_FILE = REGISTRY_COUNTS_CSV
 ANALYSIS_QUALITY_FILE = QUALITY_DIR / "registry_entity_counts_by_province_checks.json"

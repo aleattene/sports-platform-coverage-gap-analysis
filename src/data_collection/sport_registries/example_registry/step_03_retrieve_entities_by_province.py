@@ -37,7 +37,7 @@ from src.utils.logging import configure_logging
 configure_logging(LOG_LEVEL)
 logger = logging.getLogger(__name__)
 
-COUNTS_OUTPUT_FILE = PROCESSED_DIR / "entity_counts.json"
+COUNTS_OUTPUT_FILE = PROCESSED_DIR / "registry_entity_counts_by_province.json"
 QUALITY_OUTPUT_FILE = QUALITY_DIR / "entity_counts_checks.json"
 
 
@@ -368,6 +368,7 @@ def main() -> None:
 
         finally:
             counts_payload = {
+                "generated_at_epoch": int(time.time()),
                 "dimension": "province_entity_counts",
                 "count": len(count_rows),
                 "items": count_rows,

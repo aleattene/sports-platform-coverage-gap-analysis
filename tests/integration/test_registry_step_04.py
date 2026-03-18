@@ -1,8 +1,8 @@
 """Integration tests for registry step_04 — build analysis dataset.
 
-Step_04 is pure data processing (no Playwright): it loads entity_counts.json
-from step_03 output, validates rows, removes duplicates, and exports
-analysis-ready JSON, CSV, and quality checks.
+Step_04 is pure data processing (no Playwright): it loads
+registry_entity_counts_by_province.json from step_03 output, validates rows,
+removes duplicates, and exports analysis-ready JSON, CSV, and quality checks.
 """
 
 import csv
@@ -20,14 +20,14 @@ import src.data_collection.sport_registries.example_registry.step_04_build_analy
 # ---------------------------------------------------------------------------
 
 def _seed_entity_counts(processed_dir: Path, items: list[dict[str, Any]]) -> None:
-    """Write a valid entity_counts.json fixture into processed_dir."""
+    """Write a valid registry_entity_counts_by_province.json fixture into processed_dir."""
     processed_dir.mkdir(parents=True, exist_ok=True)
     payload = {
         "dimension": "province_entity_counts",
         "count": len(items),
         "items": items,
     }
-    (processed_dir / "entity_counts.json").write_text(
+    (processed_dir / "registry_entity_counts_by_province.json").write_text(
         json.dumps(payload), encoding="utf-8",
     )
 
@@ -68,7 +68,7 @@ def tmp_dirs(tmp_path: Path) -> dict[str, Path]:
 
 @pytest.fixture
 def _patch_dirs(monkeypatch: pytest.MonkeyPatch, tmp_dirs: dict[str, Path]) -> dict[str, Path]:
-    monkeypatch.setattr(step_04_mod, "COUNTS_INPUT_FILE", tmp_dirs["processed"] / "entity_counts.json")
+    monkeypatch.setattr(step_04_mod, "COUNTS_INPUT_FILE", tmp_dirs["processed"] / "registry_entity_counts_by_province.json")
     monkeypatch.setattr(step_04_mod, "ANALYSIS_JSON_FILE", tmp_dirs["processed"] / "registry_entity_counts_by_province.json")
     monkeypatch.setattr(step_04_mod, "ANALYSIS_CSV_FILE", tmp_dirs["processed"] / "registry_entity_counts_by_province.csv")
     monkeypatch.setattr(step_04_mod, "ANALYSIS_QUALITY_FILE", tmp_dirs["quality"] / "registry_entity_counts_by_province_checks.json")
@@ -173,8 +173,8 @@ class TestStep04Main:
         self,
         _patch_dirs: dict[str, Path],
     ) -> None:
-        """entity_counts.json as a list instead of dict."""
-        input_file = _patch_dirs["processed"] / "entity_counts.json"
+        """Input file as a list instead of dict."""
+        input_file = _patch_dirs["processed"] / "registry_entity_counts_by_province.json"
         input_file.write_text(json.dumps([1, 2, 3]), encoding="utf-8")
 
         with pytest.raises(ValueError, match="expected dictionary"):
@@ -185,7 +185,7 @@ class TestStep04Main:
         _patch_dirs: dict[str, Path],
     ) -> None:
         """items is a string instead of list."""
-        input_file = _patch_dirs["processed"] / "entity_counts.json"
+        input_file = _patch_dirs["processed"] / "registry_entity_counts_by_province.json"
         input_file.write_text(
             json.dumps({"dimension": "test", "items": "not_a_list"}),
             encoding="utf-8",
