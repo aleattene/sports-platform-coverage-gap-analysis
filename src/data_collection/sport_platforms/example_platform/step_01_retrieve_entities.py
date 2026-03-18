@@ -6,6 +6,7 @@ from src.config import (
     LOG_LEVEL,
     PLATFORM_BASE_URL,
     PLATFORM_MAX_RETRIES,
+    PLATFORM_NAME,
     PLATFORM_ORGS_ENDPOINT,
     PLATFORM_RAW_DIR,
     PLATFORM_REQUEST_DELAY_S,
@@ -83,6 +84,7 @@ def main() -> None:
             url=url,
             max_retries=PLATFORM_MAX_RETRIES,
             base_delay_s=PLATFORM_REQUEST_DELAY_S,
+            source_label=PLATFORM_NAME,
         )
     finally:
         client.close()

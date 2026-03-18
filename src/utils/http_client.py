@@ -27,13 +27,14 @@ def fetch_json_with_retry(
     url: str,
     max_retries: int = 3,
     base_delay_s: int = 10,
+    source_label: str = "source",
 ) -> Any:
     """
     Fetch JSON from a URL with retry and exponential backoff.
     """
     for attempt in range(1, max_retries + 1):
         try:
-            logger.info("GET %s (attempt %d/%d)", url, attempt, max_retries)
+            logger.info("GET %s (attempt %d/%d)", source_label, attempt, max_retries)
             response = client.get(url)
             response.raise_for_status()
             data = response.json()

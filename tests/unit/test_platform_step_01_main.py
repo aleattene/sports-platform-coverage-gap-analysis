@@ -36,7 +36,7 @@ class TestStep01Main:
         monkeypatch.setattr(mod, "create_client", lambda timeout_s: mock_client)
         monkeypatch.setattr(
             mod, "fetch_json_with_retry",
-            lambda client, url, max_retries, base_delay_s: raw_api_response,
+            lambda client, url, max_retries, base_delay_s, source_label: raw_api_response,
         )
 
         mod.main()
@@ -122,7 +122,7 @@ class TestStep01Main:
         monkeypatch.setattr(mod, "create_client", lambda timeout_s: mock_client)
         monkeypatch.setattr(
             mod, "fetch_json_with_retry",
-            lambda client, url, max_retries, base_delay_s: {"not": "a list"},
+            lambda client, url, max_retries, base_delay_s, source_label: {"not": "a list"},
         )
 
         with pytest.raises(ValueError, match="JSON array"):
