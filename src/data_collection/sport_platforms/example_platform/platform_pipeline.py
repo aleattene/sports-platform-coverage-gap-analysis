@@ -1,5 +1,5 @@
 import logging
-from typing import Callable
+from collections.abc import Callable
 
 from src.config import FETCH_PLATFORM_DATA, LOG_LEVEL, PLATFORM_QUALITY_DIR, PLATFORM_RAW_DIR
 from src.utils.input_output import save_json

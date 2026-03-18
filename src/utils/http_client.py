@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import logging
 import time
 from typing import Any
@@ -40,8 +41,8 @@ def fetch_json_with_retry(
             data = response.json()
             logger.info("Response OK — %d items", len(data) if isinstance(data, list) else 1)
             return data
-        except (httpx.HTTPStatusError, httpx.RequestError, ValueError) as exc:
-            if isinstance(exc, ValueError):
+        except (httpx.HTTPStatusError, httpx.RequestError, json.JSONDecodeError) as exc:
+            if isinstance(exc, json.JSONDecodeError):
                 snippet: str = response.text[:200]
                 logger.warning(
                     "Attempt %d/%d — invalid JSON (status %d): %s | body: %s",
