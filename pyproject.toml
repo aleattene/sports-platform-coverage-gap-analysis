@@ -9,7 +9,13 @@ pythonpath = ["."]           # Allows 'from src.xxx import ...' in tests
 [tool.coverage.run]
 source = ["src"]             # Only measure coverage on project source code
 omit = [
-    "src/utils/browser.py",  # Requires a real Playwright browser, tested manually
+    "src/utils/browser.py",                                                          # Requires a real Playwright browser
+    "src/data_collection/sport_registries/example_registry/registry_pipeline.py",    # Integration: orchestrator
+    "src/data_collection/sport_registries/example_registry/step_01_retrieve_regions.py",       # Integration: Playwright
+    "src/data_collection/sport_registries/example_registry/step_02_retrieve_provinces.py",     # Integration: Playwright
+    "src/data_collection/sport_registries/example_registry/step_03_retrieve_entities_by_province.py",  # Integration: Playwright
+    "src/data_collection/sport_registries/example_registry/step_04_build_analysis_dataset.py", # Integration: requires raw data
+    "src/data_collection/sport_platforms/example_platform/platform_pipeline.py",     # Integration: orchestrator
 ]
 
 # -- Coverage: reporting --
