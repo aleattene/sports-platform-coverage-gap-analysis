@@ -60,9 +60,11 @@ data/
       processed/              # analysis-ready CSV/JSON
       quality/                # data quality checks
     sport_platforms/<platform_name>/
-      raw/                    # raw platform data
-      processed/              # analysis-ready CSV
+      raw/                    # raw platform data (sanitized)
+      processed/              # analysis-ready CSV/JSON
+      quality/                # data quality checks
   analysis/                   # notebook output
+  quality/                    # project-level pipeline summary
 data_sample/                  # static sample data (committed)
 notebooks/                    # Jupyter notebooks for EDA
 src/
