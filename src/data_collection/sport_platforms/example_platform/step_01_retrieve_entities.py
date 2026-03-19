@@ -6,6 +6,7 @@ from src.config import (
     LOG_LEVEL,
     PLATFORM_BASE_URL,
     PLATFORM_MAX_RETRIES,
+    PLATFORM_NAME,
     PLATFORM_ORGS_ENDPOINT,
     PLATFORM_RAW_DIR,
     PLATFORM_REQUEST_DELAY_S,
@@ -21,7 +22,7 @@ configure_logging(LOG_LEVEL)
 logger = logging.getLogger(__name__)
 
 RAW_OUTPUT = PLATFORM_RAW_DIR / "platform_entities.json"
-QUALITY_OUTPUT = PLATFORM_QUALITY_DIR / "entities_retrieval_checks.json"
+QUALITY_OUTPUT = PLATFORM_QUALITY_DIR / "platform_entities_checks.json"
 
 
 def sanitize_entity(raw_item: Any) -> dict[str, Any] | None:
@@ -83,6 +84,7 @@ def main() -> None:
             url=url,
             max_retries=PLATFORM_MAX_RETRIES,
             base_delay_s=PLATFORM_REQUEST_DELAY_S,
+            source_label="platform_entities",
         )
     finally:
         client.close()
@@ -115,7 +117,7 @@ def main() -> None:
 
     quality_payload = {
         "retrieved_at": timestamp,
-        "dimension": "entities_retrieval_checks",
+        "dimension": "platform_entities_checks",
         "raw_count": len(raw_items),
         "selected_count": len(selected),
         "skipped_count": skipped,

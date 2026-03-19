@@ -6,7 +6,6 @@ from typing import Any
 
 from src.data_collection.sport_platforms.example_platform.step_02_build_analysis_dataset import (
     aggregate_by_province,
-    aggregate_by_sport_and_province,
     build_csv,
 )
 
@@ -41,36 +40,6 @@ class TestAggregateByProvince:
         items = [{"sport": ["calcio"], "province_abbr": "XX", "region_code": "ZZZ"}]
         rows = aggregate_by_province(items)
         assert rows[0]["region_name"] == "ZZZ"  # fallback to code itself
-
-
-class TestAggregateBySportAndProvince:
-
-    def test_counts_per_sport_province_pair(self, sample_platform_items: list[dict[str, Any]]) -> None:
-        rows = aggregate_by_sport_and_province(sample_platform_items)
-        lookup = {(r["sport_key"], r["province_abbr"]): r["platform_entities"] for r in rows}
-        assert lookup[("calcio", "RM")] == 1
-        assert lookup[("nuoto", "RM")] == 1
-        assert lookup[("calcio", "MI")] == 1
-        assert lookup[("basket", "MI")] == 1
-
-    def test_multi_sport_entity_counted_per_sport(self) -> None:
-        items = [{"sport": ["calcio", "nuoto"], "province_abbr": "TO", "region_code": "PIE"}]
-        rows = aggregate_by_sport_and_province(items)
-        assert len(rows) == 2
-        sports = {r["sport_key"] for r in rows}
-        assert sports == {"calcio", "nuoto"}
-
-    def test_sorted_by_sport_then_province(self, sample_platform_items: list[dict[str, Any]]) -> None:
-        rows = aggregate_by_sport_and_province(sample_platform_items)
-        keys = [(r["sport_key"], r["province_abbr"]) for r in rows]
-        assert keys == sorted(keys)
-
-    def test_empty_input(self) -> None:
-        assert aggregate_by_sport_and_province([]) == []
-
-    def test_skips_items_without_sport(self) -> None:
-        items = [{"sport": [], "province_abbr": "RM", "region_code": "LAZ"}]
-        assert aggregate_by_sport_and_province(items) == []
 
 
 class TestBuildCsv:

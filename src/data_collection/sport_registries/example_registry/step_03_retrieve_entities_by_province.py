@@ -12,15 +12,14 @@ from src.config import (
     DEV_SAMPLE_REGIONS,
     LOG_LEVEL,
     MAX_PROVINCE_RETRIES,
-    PROCESSED_DIR,
     PROVINCES_DIR,
+    RAW_DIR,
     PWT_BETWEEN_REQUESTS_MS,
     PWT_COOKIE_WAIT_MS,
     PWT_HEADLESS,
     PWT_POST_LOAD_WAIT_MS,
     PWT_SLOW_MO,
     PWT_TIMEOUT_MS,
-    QUALITY_DIR,
     SOURCE_PROVINCE_SELECT_NAME,
     SOURCE_PROVINCES_TASK_KEY,
     SOURCE_REGION_SELECT_NAME,
@@ -37,8 +36,7 @@ from src.utils.logging import configure_logging
 configure_logging(LOG_LEVEL)
 logger = logging.getLogger(__name__)
 
-COUNTS_OUTPUT_FILE = PROCESSED_DIR / "entity_counts.json"
-QUALITY_OUTPUT_FILE = QUALITY_DIR / "entity_counts_checks.json"
+COUNTS_OUTPUT_FILE = RAW_DIR / "registry_entity_counts_by_province.json"
 
 
 def load_province_files(provinces_dir: Path) -> list[Path]:
@@ -302,7 +300,6 @@ def main() -> None:
     logger.info("Total provinces to process: %s", len(provinces))
 
     count_rows: list[dict[str, Any]] = []
-    quality_rows: list[dict[str, Any]] = []
 
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=PWT_HEADLESS, slow_mo=PWT_SLOW_MO)
@@ -336,25 +333,7 @@ def main() -> None:
                     )
                     count_rows.append(count_row)
 
-                    quality_rows.append(
-                        {
-                            "region_name": region_name,
-                            "province_name": province_name,
-                            "entities_total": total_results,
-                            "status": "ok",
-                        }
-                    )
-
                 except Exception as exc:
-                    quality_rows.append(
-                        {
-                            "region_name": region_name,
-                            "province_name": province_name,
-                            "entities_total": None,
-                            "status": "failed",
-                            "error": str(exc),
-                        }
-                    )
                     logger.exception(
                         "Province count retrieval failed for %s / %s",
                         region_name,
@@ -368,21 +347,14 @@ def main() -> None:
 
         finally:
             counts_payload = {
+                "generated_at_epoch": int(time.time()),
                 "dimension": "province_entity_counts",
                 "count": len(count_rows),
                 "items": count_rows,
             }
             save_json(counts_payload, COUNTS_OUTPUT_FILE)
 
-            quality_payload = {
-                "dimension": "province_counts_quality_checks",
-                "count": len(quality_rows),
-                "items": quality_rows,
-            }
-            save_json(quality_payload, QUALITY_OUTPUT_FILE)
-
             logger.info("Saved province counts output: %s", COUNTS_OUTPUT_FILE)
-            logger.info("Saved quality checks: %s", QUALITY_OUTPUT_FILE)
 
             context.close()
             browser.close()

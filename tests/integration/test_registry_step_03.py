@@ -90,18 +90,18 @@ def _build_playwright_mock(
 @pytest.fixture
 def tmp_dirs(tmp_path: Path) -> dict[str, Path]:
     provinces_dir = tmp_path / "provinces"
+    raw_dir = tmp_path / "raw"
     processed_dir = tmp_path / "processed"
     quality_dir = tmp_path / "quality"
-    for d in (provinces_dir, processed_dir, quality_dir):
+    for d in (provinces_dir, raw_dir, processed_dir, quality_dir):
         d.mkdir()
-    return {"provinces": provinces_dir, "processed": processed_dir, "quality": quality_dir}
+    return {"provinces": provinces_dir, "raw": raw_dir, "processed": processed_dir, "quality": quality_dir}
 
 
 @pytest.fixture
 def _patch_dirs(monkeypatch: pytest.MonkeyPatch, tmp_dirs: dict[str, Path]) -> dict[str, Path]:
     monkeypatch.setattr(step_03_mod, "PROVINCES_DIR", tmp_dirs["provinces"])
-    monkeypatch.setattr(step_03_mod, "COUNTS_OUTPUT_FILE", tmp_dirs["processed"] / "entity_counts.json")
-    monkeypatch.setattr(step_03_mod, "QUALITY_OUTPUT_FILE", tmp_dirs["quality"] / "entity_counts_checks.json")
+    monkeypatch.setattr(step_03_mod, "COUNTS_OUTPUT_FILE", tmp_dirs["raw"] / "registry_entity_counts_by_province.json")
     monkeypatch.setattr(step_03_mod, "DEV_MODE", False)
     # Speed up: no waits
     monkeypatch.setattr(step_03_mod, "PWT_BETWEEN_REQUESTS_MS", 0)
@@ -136,7 +136,7 @@ class TestStep03Main:
 
         step_03_mod.main()
 
-        output_file = _patch_dirs["processed"] / "entity_counts.json"
+        output_file = _patch_dirs["raw"] / "registry_entity_counts_by_province.json"
         assert output_file.exists()
         data = json.loads(output_file.read_text(encoding="utf-8"))
         assert data["dimension"] == "province_entity_counts"
@@ -171,52 +171,9 @@ class TestStep03Main:
         step_03_mod.main()
 
         data = json.loads(
-            (_patch_dirs["processed"] / "entity_counts.json").read_text(encoding="utf-8")
+            (_patch_dirs["raw"] / "registry_entity_counts_by_province.json").read_text(encoding="utf-8")
         )
         assert data["count"] == 2
-
-    def test_produces_quality_checks(
-        self,
-        monkeypatch: pytest.MonkeyPatch,
-        _patch_dirs: dict[str, Path],
-    ) -> None:
-        _seed_province_file(_patch_dirs["provinces"], "lazio.json", LAZIO_PROVINCES)
-
-        monkeypatch.setattr(
-            step_03_mod, "sync_playwright",
-            lambda: _build_playwright_mock({"Roma": 1500}),
-        )
-        monkeypatch.setattr(step_03_mod, "handle_cookie_banner", lambda page, wait_ms: None)
-        monkeypatch.setattr(step_03_mod, "extract_total_results", lambda page: 1500)
-
-        step_03_mod.main()
-
-        quality_file = _patch_dirs["quality"] / "entity_counts_checks.json"
-        assert quality_file.exists()
-        data = json.loads(quality_file.read_text(encoding="utf-8"))
-        assert data["count"] == 1
-        assert data["items"][0]["status"] == "ok"
-
-    def test_failed_province_recorded_in_quality(
-        self,
-        monkeypatch: pytest.MonkeyPatch,
-        _patch_dirs: dict[str, Path],
-    ) -> None:
-        _seed_province_file(_patch_dirs["provinces"], "lazio.json", LAZIO_PROVINCES)
-
-        monkeypatch.setattr(
-            step_03_mod, "sync_playwright",
-            lambda: _build_playwright_mock({"Roma": 0}),
-        )
-        monkeypatch.setattr(step_03_mod, "handle_cookie_banner", lambda page, wait_ms: None)
-        # extract_total_results returns None → triggers RuntimeError inside run_single_province_count
-        monkeypatch.setattr(step_03_mod, "extract_total_results", lambda page: None)
-
-        step_03_mod.main()
-
-        quality_file = _patch_dirs["quality"] / "entity_counts_checks.json"
-        data = json.loads(quality_file.read_text(encoding="utf-8"))
-        assert data["items"][0]["status"] == "failed"
 
     def test_raises_if_no_province_files(
         self,

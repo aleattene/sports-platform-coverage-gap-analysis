@@ -38,6 +38,7 @@ if APP_ENV not in ("development", "production"):
 DATA_DIR = PROJECT_ROOT / "data"
 
 ANALYSIS_DIR = DATA_DIR / "analysis"
+PROJECT_QUALITY_DIR = DATA_DIR / "quality"
 SOURCES_DIR = DATA_DIR / "sources"
 SPORT_PLATFORMS_DIR = SOURCES_DIR / "sport_platforms"
 SPORT_REGISTRIES_DIR = SOURCES_DIR / "sport_registries"
@@ -68,7 +69,6 @@ RAW_DIR = REGISTRY_DIR / "raw"
 
 REGIONS_DIR = RAW_DIR / "regions"
 PROVINCES_DIR = RAW_DIR / "provinces"
-ENTITIES_DIR = RAW_DIR / "entities"
 
 PROCESSED_DIR = REGISTRY_DIR / "processed"
 QUALITY_DIR = REGISTRY_DIR / "quality"
@@ -128,7 +128,7 @@ LOG_LEVEL = get_env("LOG_LEVEL", "INFO")
 # regions/provinces instead of collecting all ~107 provinces.
 # Set DEV_MODE=false (or unset) for a full production run.
 DEV_MODE = get_env_bool("DEV_MODE", False)
-DEV_SAMPLE_REGIONS = get_env_int("DEV_SAMPLE_REGIONS", 3)
+DEV_SAMPLE_REGIONS = get_env_int("DEV_SAMPLE_REGIONS", 2)
 DEV_SAMPLE_PROVINCES_PER_REGION = get_env_int("DEV_SAMPLE_PROVINCES_PER_REGION", 2)
 
 # Validation of critical configuration values
@@ -147,6 +147,7 @@ if not SOURCE_PROVINCES_TASK_KEY.strip():
 for path in (
         DATA_DIR,
         ANALYSIS_DIR,
+        PROJECT_QUALITY_DIR,
         SOURCES_DIR,
         SPORT_PLATFORMS_DIR,
         SPORT_REGISTRIES_DIR,
@@ -158,7 +159,6 @@ for path in (
         RAW_DIR,
         REGIONS_DIR,
         PROVINCES_DIR,
-        ENTITIES_DIR,
         PROCESSED_DIR,
         QUALITY_DIR,
 ):

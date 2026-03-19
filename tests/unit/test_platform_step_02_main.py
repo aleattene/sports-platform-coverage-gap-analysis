@@ -32,9 +32,6 @@ class TestStep02Main:
         monkeypatch.setattr(mod, "RAW_INPUT", raw_file)
         monkeypatch.setattr(mod, "ANALYSIS_CSV_BY_PROVINCE", processed_dir / "by_province.csv")
         monkeypatch.setattr(mod, "ANALYSIS_JSON_BY_PROVINCE", processed_dir / "by_province.json")
-        monkeypatch.setattr(mod, "ANALYSIS_CSV_BY_SPORT_PROVINCE", processed_dir / "by_sport_province.csv")
-        monkeypatch.setattr(mod, "QUALITY_OUTPUT", quality_dir / "checks.json")
-        monkeypatch.setattr(mod, "PROJECT_ROOT", tmp_path)
 
         mod.main()
         return processed_dir
@@ -68,35 +65,6 @@ class TestStep02Main:
         data = json.loads(json_file.read_text(encoding="utf-8"))
         assert data["dimension"] == "platform_entity_counts_by_province"
         assert data["count"] == 2
-
-    def test_main_produces_sport_province_csv(
-        self,
-        monkeypatch: pytest.MonkeyPatch,
-        tmp_path: Path,
-        sample_raw_payload: dict[str, Any],
-    ) -> None:
-        processed_dir = self._setup_and_run(monkeypatch, tmp_path, sample_raw_payload)
-        csv_file = processed_dir / "by_sport_province.csv"
-        assert csv_file.exists()
-
-        with csv_file.open(encoding="utf-8") as f:
-            rows = list(csv.DictReader(f))
-        # calcio-MI, calcio-RM, basket-MI, nuoto-RM = 4
-        assert len(rows) == 4
-
-    def test_main_produces_quality_report(
-        self,
-        monkeypatch: pytest.MonkeyPatch,
-        tmp_path: Path,
-        sample_raw_payload: dict[str, Any],
-    ) -> None:
-        self._setup_and_run(monkeypatch, tmp_path, sample_raw_payload)
-        quality_file = tmp_path / "quality" / "checks.json"
-        assert quality_file.exists()
-
-        data = json.loads(quality_file.read_text(encoding="utf-8"))
-        assert data["total_entities"] == 3
-        assert data["unique_provinces"] == 2
 
     def test_main_raises_on_invalid_format(
         self,

@@ -29,14 +29,14 @@ class TestStep01Main:
         monkeypatch.setattr(mod, "PLATFORM_MAX_RETRIES", 1)
         monkeypatch.setattr(mod, "PLATFORM_REQUEST_DELAY_S", 0)
         monkeypatch.setattr(mod, "RAW_OUTPUT", raw_dir / "platform_entities.json")
-        monkeypatch.setattr(mod, "QUALITY_OUTPUT", quality_dir / "entities_retrieval_checks.json")
+        monkeypatch.setattr(mod, "QUALITY_OUTPUT", quality_dir / "platform_entities_checks.json")
         monkeypatch.setattr(mod, "PROJECT_ROOT", tmp_path)
 
         mock_client = MagicMock()
         monkeypatch.setattr(mod, "create_client", lambda timeout_s: mock_client)
         monkeypatch.setattr(
             mod, "fetch_json_with_retry",
-            lambda client, url, max_retries, base_delay_s: raw_api_response,
+            lambda client, url, max_retries, base_delay_s, source_label: raw_api_response,
         )
 
         mod.main()
@@ -70,7 +70,7 @@ class TestStep01Main:
         self._run_main_with_mock_api(monkeypatch, tmp_path, [valid_raw_api_item])
 
         import json
-        quality_file = tmp_path / "quality" / "entities_retrieval_checks.json"
+        quality_file = tmp_path / "quality" / "platform_entities_checks.json"
         assert quality_file.exists()
         data = json.loads(quality_file.read_text(encoding="utf-8"))
         assert data["raw_count"] == 1
@@ -87,7 +87,7 @@ class TestStep01Main:
         self._run_main_with_mock_api(monkeypatch, tmp_path, [valid_raw_api_item, invalid_item])
 
         import json
-        quality_file = tmp_path / "quality" / "entities_retrieval_checks.json"
+        quality_file = tmp_path / "quality" / "platform_entities_checks.json"
         data = json.loads(quality_file.read_text(encoding="utf-8"))
         assert data["raw_count"] == 2
         assert data["selected_count"] == 1
@@ -122,7 +122,7 @@ class TestStep01Main:
         monkeypatch.setattr(mod, "create_client", lambda timeout_s: mock_client)
         monkeypatch.setattr(
             mod, "fetch_json_with_retry",
-            lambda client, url, max_retries, base_delay_s: {"not": "a list"},
+            lambda client, url, max_retries, base_delay_s, source_label: {"not": "a list"},
         )
 
         with pytest.raises(ValueError, match="JSON array"):
