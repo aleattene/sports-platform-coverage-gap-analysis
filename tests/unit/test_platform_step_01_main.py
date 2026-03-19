@@ -29,7 +29,7 @@ class TestStep01Main:
         monkeypatch.setattr(mod, "PLATFORM_MAX_RETRIES", 1)
         monkeypatch.setattr(mod, "PLATFORM_REQUEST_DELAY_S", 0)
         monkeypatch.setattr(mod, "RAW_OUTPUT", raw_dir / "platform_entities.json")
-        monkeypatch.setattr(mod, "QUALITY_OUTPUT", quality_dir / "platform_entity_counts_by_province_checks.json")
+        monkeypatch.setattr(mod, "QUALITY_OUTPUT", quality_dir / "platform_entities_checks.json")
         monkeypatch.setattr(mod, "PROJECT_ROOT", tmp_path)
 
         mock_client = MagicMock()
@@ -70,7 +70,7 @@ class TestStep01Main:
         self._run_main_with_mock_api(monkeypatch, tmp_path, [valid_raw_api_item])
 
         import json
-        quality_file = tmp_path / "quality" / "platform_entity_counts_by_province_checks.json"
+        quality_file = tmp_path / "quality" / "platform_entities_checks.json"
         assert quality_file.exists()
         data = json.loads(quality_file.read_text(encoding="utf-8"))
         assert data["raw_count"] == 1
@@ -87,7 +87,7 @@ class TestStep01Main:
         self._run_main_with_mock_api(monkeypatch, tmp_path, [valid_raw_api_item, invalid_item])
 
         import json
-        quality_file = tmp_path / "quality" / "platform_entity_counts_by_province_checks.json"
+        quality_file = tmp_path / "quality" / "platform_entities_checks.json"
         data = json.loads(quality_file.read_text(encoding="utf-8"))
         assert data["raw_count"] == 2
         assert data["selected_count"] == 1

@@ -19,15 +19,15 @@ import src.data_collection.sport_registries.example_registry.step_04_build_analy
 # Helpers
 # ---------------------------------------------------------------------------
 
-def _seed_entity_counts(processed_dir: Path, items: list[dict[str, Any]]) -> None:
-    """Write a valid registry_entity_counts_by_province.json fixture into processed_dir."""
-    processed_dir.mkdir(parents=True, exist_ok=True)
+def _seed_entity_counts(raw_dir: Path, items: list[dict[str, Any]]) -> None:
+    """Write a valid registry_entity_counts_by_province.json fixture into raw_dir."""
+    raw_dir.mkdir(parents=True, exist_ok=True)
     payload = {
         "dimension": "province_entity_counts",
         "count": len(items),
         "items": items,
     }
-    (processed_dir / "registry_entity_counts_by_province.json").write_text(
+    (raw_dir / "registry_entity_counts_by_province.json").write_text(
         json.dumps(payload), encoding="utf-8",
     )
 
@@ -59,16 +59,17 @@ def _sample_items() -> list[dict[str, Any]]:
 
 @pytest.fixture
 def tmp_dirs(tmp_path: Path) -> dict[str, Path]:
+    raw_dir = tmp_path / "raw"
     processed_dir = tmp_path / "processed"
     quality_dir = tmp_path / "quality"
-    processed_dir.mkdir()
-    quality_dir.mkdir()
-    return {"processed": processed_dir, "quality": quality_dir}
+    for d in (raw_dir, processed_dir, quality_dir):
+        d.mkdir()
+    return {"raw": raw_dir, "processed": processed_dir, "quality": quality_dir}
 
 
 @pytest.fixture
 def _patch_dirs(monkeypatch: pytest.MonkeyPatch, tmp_dirs: dict[str, Path]) -> dict[str, Path]:
-    monkeypatch.setattr(step_04_mod, "COUNTS_INPUT_FILE", tmp_dirs["processed"] / "registry_entity_counts_by_province.json")
+    monkeypatch.setattr(step_04_mod, "COUNTS_INPUT_FILE", tmp_dirs["raw"] / "registry_entity_counts_by_province.json")
     monkeypatch.setattr(step_04_mod, "ANALYSIS_JSON_FILE", tmp_dirs["processed"] / "registry_entity_counts_by_province.json")
     monkeypatch.setattr(step_04_mod, "ANALYSIS_CSV_FILE", tmp_dirs["processed"] / "registry_entity_counts_by_province.csv")
     monkeypatch.setattr(step_04_mod, "ANALYSIS_QUALITY_FILE", tmp_dirs["quality"] / "registry_entity_counts_by_province_checks.json")
@@ -87,7 +88,7 @@ class TestStep04Main:
         _patch_dirs: dict[str, Path],
     ) -> None:
         items = _sample_items()
-        _seed_entity_counts(_patch_dirs["processed"], items)
+        _seed_entity_counts(_patch_dirs["raw"], items)
 
         step_04_mod.main()
 
@@ -103,7 +104,7 @@ class TestStep04Main:
         _patch_dirs: dict[str, Path],
     ) -> None:
         items = _sample_items()
-        _seed_entity_counts(_patch_dirs["processed"], items)
+        _seed_entity_counts(_patch_dirs["raw"], items)
 
         step_04_mod.main()
 
@@ -121,7 +122,7 @@ class TestStep04Main:
         _patch_dirs: dict[str, Path],
     ) -> None:
         items = _sample_items()
-        _seed_entity_counts(_patch_dirs["processed"], items)
+        _seed_entity_counts(_patch_dirs["raw"], items)
 
         step_04_mod.main()
 
@@ -137,7 +138,7 @@ class TestStep04Main:
     ) -> None:
         items = _sample_items()
         items.append(items[0].copy())  # duplicate Roma row
-        _seed_entity_counts(_patch_dirs["processed"], items)
+        _seed_entity_counts(_patch_dirs["raw"], items)
 
         step_04_mod.main()
 
@@ -156,7 +157,7 @@ class TestStep04Main:
     ) -> None:
         items: list[Any] = _sample_items()
         items.append("not_a_dict")  # invalid row
-        _seed_entity_counts(_patch_dirs["processed"], items)
+        _seed_entity_counts(_patch_dirs["raw"], items)
 
         step_04_mod.main()
 
@@ -174,7 +175,7 @@ class TestStep04Main:
         _patch_dirs: dict[str, Path],
     ) -> None:
         """Input file as a list instead of dict."""
-        input_file = _patch_dirs["processed"] / "registry_entity_counts_by_province.json"
+        input_file = _patch_dirs["raw"] / "registry_entity_counts_by_province.json"
         input_file.write_text(json.dumps([1, 2, 3]), encoding="utf-8")
 
         with pytest.raises(ValueError, match="expected dictionary"):
@@ -185,7 +186,7 @@ class TestStep04Main:
         _patch_dirs: dict[str, Path],
     ) -> None:
         """items is a string instead of list."""
-        input_file = _patch_dirs["processed"] / "registry_entity_counts_by_province.json"
+        input_file = _patch_dirs["raw"] / "registry_entity_counts_by_province.json"
         input_file.write_text(
             json.dumps({"dimension": "test", "items": "not_a_list"}),
             encoding="utf-8",
@@ -198,7 +199,7 @@ class TestStep04Main:
         self,
         _patch_dirs: dict[str, Path],
     ) -> None:
-        _seed_entity_counts(_patch_dirs["processed"], [])
+        _seed_entity_counts(_patch_dirs["raw"], [])
 
         step_04_mod.main()
 

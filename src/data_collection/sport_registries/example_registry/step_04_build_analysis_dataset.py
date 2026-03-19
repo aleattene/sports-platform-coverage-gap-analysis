@@ -3,7 +3,7 @@ import logging
 import time
 from typing import Any
 
-from src.config import LOG_LEVEL, PROCESSED_DIR, PROJECT_ROOT, QUALITY_DIR, REGISTRY_COUNTS_CSV
+from src.config import LOG_LEVEL, PROCESSED_DIR, PROJECT_ROOT, QUALITY_DIR, RAW_DIR, REGISTRY_COUNTS_CSV
 from src.utils.input_output import load_json, save_json
 from src.utils.logging import configure_logging
 
@@ -12,7 +12,7 @@ configure_logging(LOG_LEVEL)
 logger = logging.getLogger(__name__)
 
 
-COUNTS_INPUT_FILE = PROCESSED_DIR / "registry_entity_counts_by_province.json"
+COUNTS_INPUT_FILE = RAW_DIR / "registry_entity_counts_by_province.json"
 ANALYSIS_JSON_FILE = PROCESSED_DIR / "registry_entity_counts_by_province.json"
 ANALYSIS_CSV_FILE = REGISTRY_COUNTS_CSV
 ANALYSIS_QUALITY_FILE = QUALITY_DIR / "registry_entity_counts_by_province_checks.json"

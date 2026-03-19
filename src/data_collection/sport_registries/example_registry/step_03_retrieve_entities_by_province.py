@@ -12,8 +12,8 @@ from src.config import (
     DEV_SAMPLE_REGIONS,
     LOG_LEVEL,
     MAX_PROVINCE_RETRIES,
-    PROCESSED_DIR,
     PROVINCES_DIR,
+    RAW_DIR,
     PWT_BETWEEN_REQUESTS_MS,
     PWT_COOKIE_WAIT_MS,
     PWT_HEADLESS,
@@ -36,7 +36,7 @@ from src.utils.logging import configure_logging
 configure_logging(LOG_LEVEL)
 logger = logging.getLogger(__name__)
 
-COUNTS_OUTPUT_FILE = PROCESSED_DIR / "registry_entity_counts_by_province.json"
+COUNTS_OUTPUT_FILE = RAW_DIR / "registry_entity_counts_by_province.json"
 
 
 def load_province_files(provinces_dir: Path) -> list[Path]:
