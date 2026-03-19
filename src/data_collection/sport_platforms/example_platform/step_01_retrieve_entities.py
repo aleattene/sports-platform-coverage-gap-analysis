@@ -84,7 +84,7 @@ def main() -> None:
             url=url,
             max_retries=PLATFORM_MAX_RETRIES,
             base_delay_s=PLATFORM_REQUEST_DELAY_S,
-            source_label=PLATFORM_NAME,
+            source_label="platform_entities",
         )
     finally:
         client.close()
