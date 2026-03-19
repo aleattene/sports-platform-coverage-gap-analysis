@@ -22,7 +22,7 @@ configure_logging(LOG_LEVEL)
 logger = logging.getLogger(__name__)
 
 RAW_OUTPUT = PLATFORM_RAW_DIR / "platform_entities.json"
-QUALITY_OUTPUT = PLATFORM_QUALITY_DIR / "entities_retrieval_checks.json"
+QUALITY_OUTPUT = PLATFORM_QUALITY_DIR / "platform_entity_counts_by_province_checks.json"
 
 
 def sanitize_entity(raw_item: Any) -> dict[str, Any] | None:
