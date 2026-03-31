@@ -146,7 +146,7 @@ For each region, the chart shows how many of the top-10 sport categories have fe
 
 ## 7. Conclusions
 
-1. **Market sizing:** In the current dataset, the platform is present across all 107 Italian provinces, but coverage depth varies enormously. A handful of provinces concentrate most of the activity.
+1. **Market sizing:** In the current dataset, the platform is present across all provinces covered in this snapshot (107 in the current extract), but coverage depth varies enormously. A handful of provinces concentrate most of the activity.
 2. **Coverage gap:** The platform has captured only a fraction of the total addressable market. The gap is largest in the most populated provinces.
 3. **Sport concentration:** Football dominates the platform's sport mix. The top 3 macro-categories account for over half of all sport-entity pairs — a clear beachhead, but also a concentration risk.
 4. **Growth trajectory:** Registration data shows sustained growth, indicating positive market momentum.
