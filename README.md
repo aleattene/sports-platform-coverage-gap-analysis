@@ -147,7 +147,13 @@ cp .env.example .env
 # Set SOURCE_URL and registry vars only when FETCH_REGISTRY_DATA=true.
 # Set PLATFORM_BASE_URL and platform vars only when FETCH_PLATFORM_DATA=true.
 
-# 3. Run pipeline (processes existing local data by default — no remote calls)
+# 3. Populate data/ directory
+# Option A — reproduce with bundled sample data:
+mkdir -p data/sources
+cp -r data_sample/sources/* data/sources/
+# Option B — skip and let the pipeline fetch fresh data (see step 4 below).
+
+# 4. Run pipeline (processes existing local data by default — no remote calls)
 python -m run_pipeline
 
 # Fetch fresh data from platform API
