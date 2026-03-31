@@ -1,5 +1,7 @@
 # Analisi dei Gap di Copertura delle Piattaforme Sportive
 
+> English version: [README.md](README.md)
+
 ![CI](https://github.com/aleattene/sports-platform-coverage-gap-analysis/actions/workflows/ci.yml/badge.svg)
 [![Coverage](https://codecov.io/gh/aleattene/sports-platform-coverage-gap-analysis/branch/main/graph/badge.svg)](https://codecov.io/gh/aleattene/sports-platform-coverage-gap-analysis)
 ![Python](https://img.shields.io/badge/Python-3.13-blue)
@@ -60,9 +62,11 @@ e la presenza sulla piattaforma è sostanziale — il mercato è in larga parte 
 
 | KPI | Formula | Interpretazione |
 |-----|---------|-----------------|
-| Tasso di Copertura | `entità_piattaforma / entità_totali` | 0 = nessuna copertura, 1 = copertura totale |
-| Gap di Copertura | `entità_totali - entità_piattaforma` | Numero assoluto di entità non raggiunte |
+| Tasso di Copertura | `platform_entities / entities_total` | 0 = nessuna copertura, 1 = copertura totale |
+| Gap di Copertura | `entities_total - platform_entities` | Numero assoluto di entità non raggiunte |
 | Punteggio Priorità | `0.6 × gap_score + 0.4 × density_score` | Priorità composita di espansione (0–1) |
+
+*`platform_entities` e `entities_total` corrispondono ai nomi di colonna nei CSV del progetto; `gap_score` e `density_score` sono punteggi derivati calcolati nell'analisi.*
 
 ---
 
@@ -162,7 +166,7 @@ python -m run_pipeline
 jupyter notebook notebooks/01_coverage_gap_analysis.ipynb
 ```
 
-> Per default la pipeline **non effettua alcuna chiamata remota** — elabora i dati grezzi esistenti.
+> Di default la pipeline **non effettua alcuna chiamata remota** — elabora i dati grezzi esistenti.
 > Imposta le variabili d'ambiente sopra indicate per avviare la raccolta di dati freschi.
 
 ---
