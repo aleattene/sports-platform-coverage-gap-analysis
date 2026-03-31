@@ -212,7 +212,7 @@ data/
 scripts/
 
 # Claude Code
-.claude/settings.local.json
+.claude/
 
 # TEMP — local-only project notes (not for GitHub)
 CLAUDE.md
