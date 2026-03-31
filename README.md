@@ -30,7 +30,7 @@ This analysis addresses five key questions for a sports platform operating in It
 
 ## Key Findings
 
-The platform is present across all 107 Italian provinces, but coverage depth is highly uneven.
+In the current dataset, the platform is present across all 107 Italian provinces, but coverage depth is highly uneven.
 Where registry data is available, the gap between total registered entities and platform
 presence is substantial — the market is largely untapped.
 
