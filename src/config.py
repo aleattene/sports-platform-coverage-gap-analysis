@@ -101,7 +101,7 @@ REGION_CODE_TO_NAME: dict[str, str] = {
     "VEN": "Veneto",
 }
 
-SOURCE_URL = get_env("SOURCE_URL", required=True)
+SOURCE_URL = get_env("SOURCE_URL", required=FETCH_REGISTRY_DATA)
 
 SOURCE_REGION_SELECT_NAME = get_env("SOURCE_REGION_SELECT_NAME")
 SOURCE_PROVINCE_SELECT_NAME = get_env("SOURCE_PROVINCE_SELECT_NAME")
@@ -131,15 +131,16 @@ DEV_MODE = get_env_bool("DEV_MODE", False)
 DEV_SAMPLE_REGIONS = get_env_int("DEV_SAMPLE_REGIONS", 2)
 DEV_SAMPLE_PROVINCES_PER_REGION = get_env_int("DEV_SAMPLE_PROVINCES_PER_REGION", 2)
 
-# Validation of critical configuration values
-if not SOURCE_REGION_SELECT_NAME.strip():
-    raise ValueError("SOURCE_REGION_SELECT_NAME cannot be empty.")
+# Validation of registry-specific configuration: only required when fetching live data.
+if FETCH_REGISTRY_DATA:
+    if not SOURCE_REGION_SELECT_NAME.strip():
+        raise ValueError("SOURCE_REGION_SELECT_NAME cannot be empty.")
 
-if not SOURCE_PROVINCE_SELECT_NAME.strip():
-    raise ValueError("SOURCE_PROVINCE_SELECT_NAME cannot be empty.")
+    if not SOURCE_PROVINCE_SELECT_NAME.strip():
+        raise ValueError("SOURCE_PROVINCE_SELECT_NAME cannot be empty.")
 
-if not SOURCE_PROVINCES_TASK_KEY.strip():
-    raise ValueError("SOURCE_PROVINCES_TASK_KEY cannot be empty.")
+    if not SOURCE_PROVINCES_TASK_KEY.strip():
+        raise ValueError("SOURCE_PROVINCES_TASK_KEY cannot be empty.")
 
 
 

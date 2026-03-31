@@ -137,11 +137,17 @@ project_root/
 ## Reproducibility
 
 ```bash
-# Setup
+# 1. Install dependencies
 pip install -r requirements.txt
 playwright install chromium
 
-# Run pipeline (processes existing local data by default)
+# 2. Configure environment (copy and edit as needed)
+cp .env.example .env
+# No values are required to run the default pipeline (local data only).
+# Set SOURCE_URL and registry vars only when FETCH_REGISTRY_DATA=true.
+# Set PLATFORM_BASE_URL and platform vars only when FETCH_PLATFORM_DATA=true.
+
+# 3. Run pipeline (processes existing local data by default — no remote calls)
 python -m run_pipeline
 
 # Fetch fresh data from platform API
