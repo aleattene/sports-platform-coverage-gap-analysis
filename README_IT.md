@@ -45,6 +45,10 @@ e la presenza sulla piattaforma è sostanziale — il mercato è in larga parte 
 
 ![Matrice di Priorità](reports/figures/priority_matrix.png)
 
+### Mappa Geografica di Copertura
+
+![Mappa Coropletica Italia](reports/figures/italy_choropleth.png)
+
 ### Distribuzione per Disciplina Sportiva
 
 ![Mix Sportivo](reports/figures/sport_mix_distribution.png)
@@ -134,7 +138,7 @@ project_root/
 | Visualizzazione | Matplotlib, Seaborn |
 | Notebook | Jupyter |
 | Raccolta dati | Playwright (registro), client HTTP con retry/backoff (piattaforma) |
-| Visualizzazione geografica | GeoPandas (opzionale) |
+| Visualizzazione geografica | GeoPandas |
 | Dashboard | Looker Studio |
 
 ---
@@ -146,20 +150,26 @@ project_root/
 pip install -r requirements.txt
 playwright install chromium
 
-# 2. Configura l'ambiente (copia e modifica secondo necessità)
+# 1b. Installa i pre-commit hook (rimuove gli output del notebook prima di ogni commit)
+pre-commit install
+
+# 2. Copia i confini geografici in data/
+cp -r data_sample/geo data/geo
+
+# 3. Configura l'ambiente (copia e modifica secondo necessità)
 cp .env.example .env
 # Non sono richiesti valori per eseguire la pipeline di default (solo dati locali).
 # Imposta SOURCE_URL e le variabili del registro solo quando FETCH_REGISTRY_DATA=true.
 # Imposta PLATFORM_BASE_URL e le variabili della piattaforma solo quando FETCH_PLATFORM_DATA=true.
 
-# 3. Popola data/ recuperando dai sorgenti configurati
-# 3a. Recupera dati dalla piattaforma API
+# 4. Popola data/ recuperando dai sorgenti configurati
+# 4a. Recupera dati dalla piattaforma API
 FETCH_PLATFORM_DATA=true python -m run_pipeline
 
-# 3b. Recupera dati dal registro
+# 4b. Recupera dati dal registro
 FETCH_REGISTRY_DATA=true python -m run_pipeline
 
-# 4. Esegui la pipeline (processa i dati locali esistenti — nessuna chiamata remota)
+# 5. Esegui la pipeline (processa i dati locali esistenti — nessuna chiamata remota)
 python -m run_pipeline
 
 # Esegui il notebook EDA
