@@ -46,7 +46,7 @@ presence is substantial — the market is largely untapped.
 
 ![Italy Choropleth](reports/figures/italy_choropleth.png)
 
-The choropleth map shows platform entity density across all 107 Italian provinces (green = higher, red = lower). Coverage is concentrated in northern and central Italy, with southern regions and islands showing comparatively lower presence.
+The choropleth map shows the number of platform entities by province across all 107 Italian provinces (green = higher, red = lower). Coverage is concentrated in northern and central Italy, with southern regions and islands showing comparatively lower presence.
 
 ### Sport Distribution
 
