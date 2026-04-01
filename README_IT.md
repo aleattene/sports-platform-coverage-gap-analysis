@@ -49,6 +49,8 @@ e la presenza sulla piattaforma è sostanziale — il mercato è in larga parte 
 
 ![Mappa Coropletica Italia](reports/figures/italy_choropleth.png)
 
+La mappa coropletica mostra il numero di società (entità) presenti in piattaforma per ciascuna delle 107 province italiane (verde = maggiore presenza, rosso = minore). La copertura è concentrata nel nord e nel centro Italia, con le regioni del sud e le isole che mostrano una presenza comparativamente più bassa.
+
 ### Distribuzione per Disciplina Sportiva
 
 ![Mix Sportivo](reports/figures/sport_mix_distribution.png)
