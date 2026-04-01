@@ -42,6 +42,10 @@ presence is substantial — the market is largely untapped.
 
 ![Priority Matrix](reports/figures/priority_matrix.png)
 
+### Geographic Coverage Map
+
+![Italy Choropleth](reports/figures/italy_choropleth.png)
+
 ### Sport Distribution
 
 ![Sport Mix](reports/figures/sport_mix_distribution.png)
@@ -129,7 +133,7 @@ project_root/
 | Visualization | Matplotlib, Seaborn |
 | Notebook | Jupyter |
 | Data collection | Playwright (registry), HTTP client with retry/backoff (platform) |
-| Geographic visualization | GeoPandas (optional) |
+| Geographic visualization | GeoPandas |
 | Dashboard | Looker Studio |
 
 ---
@@ -141,20 +145,26 @@ project_root/
 pip install -r requirements.txt
 playwright install chromium
 
-# 2. Configure environment (copy and edit as needed)
+# 1b. Install pre-commit hooks (strips notebook outputs and empty cells before each commit)
+pre-commit install
+
+# 2. Copy geographic boundaries into data/
+mkdir -p data/geo && cp data_sample/geo/. data/geo/
+
+# 3. Configure environment (copy and edit as needed)
 cp .env.example .env
 # No values are required to run the default pipeline (local data only).
 # Set SOURCE_URL and registry vars only when FETCH_REGISTRY_DATA=true.
 # Set PLATFORM_BASE_URL and platform vars only when FETCH_PLATFORM_DATA=true.
 
-# 3. Populate data/ by fetching from the configured sources
-# 3a. Fetch data from platform API
+# 4. Populate data/ by fetching from the configured sources
+# 4a. Fetch data from platform API
 FETCH_PLATFORM_DATA=true python -m run_pipeline
 
-# 3b. Fetch data from registry
+# 4b. Fetch data from registry
 FETCH_REGISTRY_DATA=true python -m run_pipeline
 
-# 4. Run pipeline (processes existing local data — no remote calls)
+# 5. Run pipeline (processes existing local data — no remote calls)
 python -m run_pipeline
 
 # Run EDA notebook
