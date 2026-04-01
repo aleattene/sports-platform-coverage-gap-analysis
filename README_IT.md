@@ -150,7 +150,7 @@ project_root/
 pip install -r requirements.txt
 playwright install chromium
 
-# 1b. Installa i pre-commit hook (rimuove gli output del notebook prima di ogni commit)
+# 1b. Installa i pre-commit hook (rimuove output e celle vuote del notebook prima di ogni commit)
 pre-commit install
 
 # 2. Copia i confini geografici in data/
