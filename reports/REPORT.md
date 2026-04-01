@@ -53,7 +53,7 @@ The histogram confirms a long-tail distribution: most provinces have relatively 
 
 ![Italy Choropleth — Platform Coverage by Province](figures/italy_choropleth.png)
 
-The choropleth map provides an immediate geographic reading of platform coverage across all Italian provinces. Darker shades indicate higher entity counts. The visual confirms that coverage is concentrated in northern and central Italy, with southern regions and islands showing comparatively lower presence — reinforcing the priority framework discussed in Section 6.
+The choropleth map provides an immediate geographic reading of platform coverage across all Italian provinces. Green shades indicate higher entity counts, yellow intermediate, and red lower counts. The visual confirms that coverage is concentrated in northern and central Italy, with southern regions and islands showing comparatively lower presence — reinforcing the priority framework discussed in Section 6.
 
 ---
 
@@ -179,7 +179,7 @@ Explore the data interactively on Looker Studio:
 | Coverage gap output | `data/analysis/coverage_gap_by_province.csv` |
 | Expansion priority output | `data/analysis/expansion_priority_by_province.csv` |
 | Sport aggregation output | `data/analysis/platform_sport_by_region.csv` |
-| Geographic boundaries | `data/geo/provinces.geojson`, `data/geo/regions.geojson` (copy from `data_sample/geo/`) |
+| Geographic boundaries | `data/geo/provinces.geojson`, `data/geo/regions.geojson` — run `mkdir -p data/geo && cp data_sample/geo/. data/geo/` to populate |
 
 The full exploratory analysis is available in [`notebooks/01_coverage_gap_analysis.ipynb`](../notebooks/01_coverage_gap_analysis.ipynb).
 
