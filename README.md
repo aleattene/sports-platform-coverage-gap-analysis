@@ -149,7 +149,7 @@ playwright install chromium
 pre-commit install
 
 # 2. Copy geographic boundaries into data/
-cp -r data_sample/geo data/geo
+mkdir -p data && cp -r data_sample/geo data/geo
 
 # 3. Configure environment (copy and edit as needed)
 cp .env.example .env

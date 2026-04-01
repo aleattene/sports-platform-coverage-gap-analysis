@@ -154,7 +154,7 @@ playwright install chromium
 pre-commit install
 
 # 2. Copia i confini geografici in data/
-cp -r data_sample/geo data/geo
+mkdir -p data && cp -r data_sample/geo data/geo
 
 # 3. Configura l'ambiente (copia e modifica secondo necessità)
 cp .env.example .env
